@@ -227,6 +227,81 @@ Preferences often contain sensitive information about user intent, regulatory ex
 - Preference tokens SHOULD minimize personally identifiable information. Instead of embedding explicit user identifiers, use pseudonymous handles that map to access-controlled directories.
 - Systems MUST treat AI enforcement failures as security incidents when they result in unauthorized data processing. Telemetry SHOULD be rate-limited to avoid revealing preference patterns to attackers probing the signaling fabric.
 
+## Privacy and End‑User Impact Considerations
+
+Real‑time and session‑oriented communication protocols (e.g., SIP, SDP, WebRTC, RTP/RTCP, QUIC‑RTC) directly mediate human‑to‑human interaction. Introducing AI‑usage preference signaling into these protocols therefore has immediate consequences for end users, including creators, participants, accessibility users, researchers, and the general public. This section outlines considerations necessary to ensure that AIPREF signaling in real‑time environments does not unintentionally restrict legitimate uses, undermine user autonomy, or create new privacy risks.
+
+### Impact on User Autonomy and Consent
+
+AI‑usage preferences expressed at the signaling or media layer may be interpreted as binding restrictions by downstream systems. Implementations MUST ensure that:
+
+* Preferences are treated as expressions of intent, not as access‑control mechanisms.
+* End users retain the ability to override platform‑imposed defaults when they are the originators of the content.
+* Intermediaries (e.g., conferencing platforms, SIP proxies, TURN servers, media mixers) do not silently substitute or modify user‑provided preferences.
+
+Because real‑time sessions often involve multiple participants, systems SHOULD provide clear and accessible mechanisms for users to understand what AI‑related preferences are being signaled on their behalf.
+
+### Avoiding Over‑Restriction of Beneficial Uses
+
+Real‑time communication is frequently used for accessibility (captioning, translation), education, archiving, and research. Overly broad or ambiguous preference categories—particularly those related to “AI Input” or “AI Training”—may unintentionally block beneficial, lawful, or expected uses.
+
+Implementations SHOULD:
+
+* Distinguish between AI‑assisted user features (e.g., live transcription) and model‑building uses (e.g., training).
+* Avoid treating a single preference (e.g., `ai-input=n`) as a blanket prohibition on all automated processing.
+* Provide clear documentation on how preferences interact with accessibility features.
+
+Preference categories defined in AIPREF vocabulary drafts (e.g., `search`, `ai-input`, `ai-train`) SHOULD be interpreted narrowly and consistently.
+
+### Transparency to Participants
+
+Real‑time sessions may involve dynamic negotiation (e.g., via SDP offer/answer). When AI‑usage preferences are conveyed:
+
+* Endpoints SHOULD surface these preferences to human participants in a clear and non‑technical manner.
+* Systems SHOULD indicate when preferences differ between participants or when intermediaries have applied additional constraints.
+* If preferences affect session features (e.g., disabling transcription), participants SHOULD be notified.
+
+Lack of transparency may create a chilling effect, where users avoid lawful or beneficial uses due to uncertainty.
+
+### Intermediary Handling and Privacy Leakage
+
+Signaling AI‑usage preferences at the session layer may inadvertently reveal information about user intent, content sensitivity, or organizational policy. For example, a preference of `ai-train=n` may imply that the content is proprietary or confidential.
+
+To mitigate this:
+
+* Intermediaries MUST NOT add, remove, or alter AI‑usage preferences unless explicitly authorized by the originating endpoint.
+* Preferences SHOULD be encrypted or integrity‑protected when carried in protocols that support such mechanisms (e.g., DTLS‑SRTP, QUIC).
+* Implementations SHOULD avoid exposing preferences in logs, analytics, or telemetry unless necessary and with appropriate safeguards.
+
+### Compatibility with Archiving and Research
+
+Real‑time communication is often recorded for compliance, education, or archival purposes. AI‑usage preferences SHOULD NOT be interpreted as prohibiting:
+
+* lawful archiving,
+* time‑shifted review,
+* accessibility processing, or
+* research uses permitted by local law.
+
+Where preferences do apply to stored recordings, systems SHOULD preserve the preferences alongside the stored media, consistent with the behavior defined in draft‑ietf‑aipref‑attach for HTTP representations.
+
+### Avoiding Platform‑Level Overreach
+
+Large communication platforms may be tempted to apply AI‑usage preferences globally on behalf of users. This can undermine user autonomy and distort the intent of AIPREF.
+
+Platforms SHOULD:
+
+* Allow per‑participant and per‑stream preferences.
+* Avoid applying organization‑wide defaults without clear user visibility.
+* Provide APIs for endpoints to express their own preferences without mediation.
+
+### Interoperability and Open Ecosystem Considerations
+
+Real‑time protocols are used across diverse environments, including open‑source clients, small organizations, and global platforms. To avoid fragmentation:
+
+* Preferences SHOULD be optional and non‑blocking.
+* Absence of a preference MUST NOT be interpreted as consent.
+* Implementations SHOULD follow the vocabulary and semantics defined in AIPREF drafts to ensure consistent interpretation across ecosystems.
+
 # IANA Considerations
 
 IANA is requested to perform the following actions.
