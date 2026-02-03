@@ -27,8 +27,8 @@ venue:
 author:
  -
     fullname: "Altanai Bisht"
-  organization: "Cisco Meraki"
-  email: "albisht@cisco.com"
+    organization: "Cisco Meraki"
+    email: "albisht@cisco.com"
 
 normative:
   RFC2119:

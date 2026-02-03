@@ -1,8 +1,8 @@
 <!-- regenerate: on (set to off if you edit this file) -->
 
-# TODO - Your title
+# AI Preferences for Real-Time Protocol Bindings
 
-This is the working area for the individual Internet-Draft, "TODO - Your title".
+This is the working area for the individual Internet-Draft, "draft-altanai-aipref-realtime-protocol-bindings".
 
 * [Editor's Copy](https://altanai.github.io/aipref-realtime-protocol-bindings/#go.draft-altanai-aipref-realtime-protocol-bindings.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-altanai-aipref-realtime-protocol-bindings)
