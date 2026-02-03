@@ -9,19 +9,19 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: "Web and Internet Transport"
+workgroup: "AI Preferences"
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: "AI Preferences"
+  type: "Working Group"
+  mail: "ai-control@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/ai-control/"
+  github: "altanai/aipref-realtime-protocol-bindings"
+  latest: "https://altanai.github.io/aipref-realtime-protocol-bindings/draft-altanai-aipref-realtime-protocol-bindings.html"
 
 author:
  -
