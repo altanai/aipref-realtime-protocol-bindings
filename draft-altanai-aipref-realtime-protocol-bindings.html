@@ -4,16 +4,17 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>TODO - Your title</title>
-<meta content="Your Name Here" name="author">
+<title>AI Preferences for Real-Time Protocol Bindings</title>
+<meta content="Altanai Bisht" name="author">
 <meta content="
-       TODO Abstract 
+       This document defines how Artificial Intelligence (AI) preference expressions are bound to signaling and media protocols used for real-time, session-based communications such as the Session Initiation Protocol (SIP) and associated Session Description Protocol (SDP) offers. It specifies a reusable binding model, concrete SIP header field conventions, and SDP attributes that allow endpoints, intermediary services, and AI assistants to advertise, negotiate, and enforce requirements about AI-driven processing of session metadata, media control events, and telemetry. The goal is to align real-time protocol behavior with the AI Preferences (AIPREF) vocabulary without disrupting existing call control semantics. 
     " name="description">
 <meta content="xml2rfc 3.31.0" name="generator">
-<meta content="next generation" name="keyword">
-<meta content="unicorn" name="keyword">
-<meta content="sparkling distributed ledger" name="keyword">
-<meta content="draft-todo-yourname-protocol-latest" name="ietf.draft">
+<meta content="AI preferences" name="keyword">
+<meta content="realtime communications" name="keyword">
+<meta content="SIP" name="keyword">
+<meta content="media control" name="keyword">
+<meta content="draft-altanai-aipref-realtime-protocol-bindings-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.31.0
     Python 3.12.12
@@ -1045,11 +1046,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">TODO - Abbreviation</td>
+<td class="center">AI Pref RT Bindings</td>
 <td class="right">February 2026</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Here</td>
+<td class="left">Bisht</td>
 <td class="center">Expires 7 August 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
@@ -1058,30 +1059,30 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">WG Working Group</dd>
+<dd class="workgroup">AI Preferences</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-todo-yourname-protocol-latest</dd>
+<dd class="internet-draft">draft-altanai-aipref-realtime-protocol-bindings-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
 <time datetime="2026-02-03" class="published">3 February 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
-<dd class="intended-status">Informational</dd>
+<dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
 <dd class="expires"><time datetime="2026-08-07">7 August 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
-      <div class="author-name">Y. N. Here</div>
-<div class="org">Your Organization Here</div>
+      <div class="author-name">A. Bisht</div>
+<div class="org">Cisco Meraki</div>
 </div>
 </dd>
 </dl>
 </div>
-<h1 id="title">TODO - Your title</h1>
+<h1 id="title">AI Preferences for Real-Time Protocol Bindings</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">TODO Abstract<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document defines how Artificial Intelligence (AI) preference expressions are bound to signaling and media protocols used for real-time, session-based communications such as the Session Initiation Protocol (SIP) and associated Session Description Protocol (SDP) offers. It specifies a reusable binding model, concrete SIP header field conventions, and SDP attributes that allow endpoints, intermediary services, and AI assistants to advertise, negotiate, and enforce requirements about AI-driven processing of session metadata, media control events, and telemetry. The goal is to align real-time protocol behavior with the AI Preferences (AIPREF) vocabulary without disrupting existing call control semantics.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1089,14 +1090,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
-        The latest revision of this draft can be found at <span><a href="https://example.com/LATEST">https://example.com/LATEST</a></span>.
-        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-todo-yourname-protocol/">https://datatracker.ietf.org/doc/draft-todo-yourname-protocol/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+        The latest revision of this draft can be found at <span><a href="https://altanai.github.io/aipref-realtime-protocol-bindings/draft-altanai-aipref-realtime-protocol-bindings.html">https://altanai.github.io/aipref-realtime-protocol-bindings/draft-altanai-aipref-realtime-protocol-bindings.html</a></span>.
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-altanai-aipref-realtime-protocol-bindings/">https://datatracker.ietf.org/doc/draft-altanai-aipref-realtime-protocol-bindings/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 <p id="section-note.1-3">
         Discussion of this document takes place on the
-        WG Working Group mailing list (<span><a href="mailto:WG@example.com">mailto:WG@example.com</a></span>),
-        which is archived at <span><a href="https://example.com/WG">https://example.com/WG</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+        AI Preferences Working Group mailing list (<span><a href="mailto:ai-control@ietf.org">mailto:ai-control@ietf.org</a></span>),
+        which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/ai-control/">https://mailarchive.ietf.org/arch/browse/ai-control/</a></span>.
+        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/ai-control/">https://www.ietf.org/mailman/listinfo/ai-control/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 <p id="section-note.1-4">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/USER/REPO">https://github.com/USER/REPO</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+        <span><a href="https://github.com/altanai/aipref-realtime-protocol-bindings">https://github.com/altanai/aipref-realtime-protocol-bindings</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1147,25 +1149,136 @@ svg :is([fill="white"], [fill^="#fff"]) {
         </h2>
 <nav class="toc"><ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
-            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+            <p id="section-toc.1-1.1.1"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-goals" class="internal xref">Goals</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2">
+                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="auto internal xref">1.2</a>.  <a href="#name-scope" class="internal xref">Scope</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.3">
+                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="auto internal xref">1.3</a>.  <a href="#name-requirements-language" class="internal xref">Requirements Language</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-binding-requirements" class="internal xref">Binding Requirements</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-binding-model" class="internal xref">Binding Model</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-sip-signaling-binding" class="internal xref">SIP Signaling Binding</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-ai-pref-header-field" class="internal xref">AI-Pref Header Field</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.1">
+                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-usage-rules" class="internal xref">Usage Rules</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.2">
+                    <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="auto internal xref">5.1.2</a>.  <a href="#name-compact-tokens-and-uris" class="internal xref">Compact Tokens and URIs</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.3">
+                    <p id="section-toc.1-1.5.2.1.2.3.1"><a href="#section-5.1.3" class="auto internal xref">5.1.3</a>.  <a href="#name-error-handling" class="internal xref">Error Handling</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-sip-body-considerations" class="internal xref">SIP Body Considerations</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-sdp-and-media-binding" class="internal xref">SDP and Media Binding</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-aaipref-attribute" class="internal xref"><code>a=aipref</code> Attribute</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-rtp-control-and-telemetry" class="internal xref">RTP Control and Telemetry</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-preference-discovery-and-sy" class="internal xref">Preference Discovery and Synchronization</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-retrieval-via-https" class="internal xref">Retrieval via HTTPS</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-repository-interaction" class="internal xref">Repository Interaction</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-conflict-resolution" class="internal xref">Conflict Resolution</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-privacy-and-enduser-impact-" class="internal xref">Privacy and End‑User Impact Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1.2.1">
+                    <p id="section-toc.1-1.9.2.1.2.1.1"><a href="#section-9.1.1" class="auto internal xref">9.1.1</a>.  <a href="#name-impact-on-user-autonomy-and" class="internal xref">Impact on User Autonomy and Consent</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1.2.2">
+                    <p id="section-toc.1-1.9.2.1.2.2.1"><a href="#section-9.1.2" class="auto internal xref">9.1.2</a>.  <a href="#name-avoiding-overrestriction-of" class="internal xref">Avoiding Over‑Restriction of Beneficial Uses</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1.2.3">
+                    <p id="section-toc.1-1.9.2.1.2.3.1"><a href="#section-9.1.3" class="auto internal xref">9.1.3</a>.  <a href="#name-transparency-to-participant" class="internal xref">Transparency to Participants</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1.2.4">
+                    <p id="section-toc.1-1.9.2.1.2.4.1"><a href="#section-9.1.4" class="auto internal xref">9.1.4</a>.  <a href="#name-intermediary-handling-and-p" class="internal xref">Intermediary Handling and Privacy Leakage</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1.2.5">
+                    <p id="section-toc.1-1.9.2.1.2.5.1"><a href="#section-9.1.5" class="auto internal xref">9.1.5</a>.  <a href="#name-compatibility-with-archivin" class="internal xref">Compatibility with Archiving and Research</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1.2.6">
+                    <p id="section-toc.1-1.9.2.1.2.6.1"><a href="#section-9.1.6" class="auto internal xref">9.1.6</a>.  <a href="#name-avoiding-platformlevel-over" class="internal xref">Avoiding Platform‑Level Overreach</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1.2.7">
+                    <p id="section-toc.1-1.9.2.1.2.7.1"><a href="#section-9.1.7" class="auto internal xref">9.1.7</a>.  <a href="#name-interoperability-and-open-e" class="internal xref">Interoperability and Open Ecosystem Considerations</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-sip-header-field-registrati" class="internal xref">SIP Header Field Registration</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-sdp-attribute-registration" class="internal xref">SDP Attribute Registration</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref"></a><a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.1">
+                <p id="section-toc.1-1.12.2.1.1"><a href="#section-12.1" class="auto internal xref"></a><a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2">
+                <p id="section-toc.1-1.12.2.2.1"><a href="#section-12.2" class="auto internal xref"></a><a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1176,72 +1289,660 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">TODO Introduction<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">Real-time communications (RTC) deployments are increasingly assisted by AI-driven components that evaluate signaling metadata, media control messages, and quality of experience (QoE) measurements. Examples include AI-based call routing, automated troubleshooting, adaptive encoding, or compliance monitoring. When these components operate on user or service provider data, the AI Preferences (AIPREF) working group requires that stakeholders can express and enforce preferences that describe what AI systems may inspect, retain, or export.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Existing AIPREF documents define preference vocabularies and repository behavior, but do not specify how those preferences are conveyed through session control protocols. This document fills that gap for SIP-based systems and applies the same pattern to other RTC bindings that reuse SIP constructs (including SIP events, PUBLISH, and WebRTC gateways). The binding guidance is protocol-agnostic where possible so that additional RTC protocols (such as XMPP Jingle or proprietary session controllers) can follow the same pattern.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<div id="goals">
+<section id="section-1.1">
+        <h3 id="name-goals">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-goals" class="section-name selfRef">Goals</a>
+        </h3>
+<p id="section-1.1-1">The binding framework <span class="bcp14">MUST</span>:<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-1.1-2">
+<li id="section-1.1-2.1">
+            <p id="section-1.1-2.1.1">Preserve backwards compatibility with SIP user agents, gateways, and middleboxes that are unaware of AI preference signaling.<a href="#section-1.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-1.1-2.2">
+            <p id="section-1.1-2.2.1">Permit endpoints and administrative domains to advertise locally enforced AI policies and to consume peer policies before AI processing begins.<a href="#section-1.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-1.1-2.3">
+            <p id="section-1.1-2.3.1">Support mid-dialog updates so that AI processing can adapt when session context changes (e.g., escalation from audio to video, invoking transcription services, or triggering automated remediation workflows).<a href="#section-1.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-1.1-2.4">
+            <p id="section-1.1-2.4.1">Allow binding of AI preferences to both signaling-layer artifacts (message bodies, header fields, event packages) and media-layer descriptions (SDP attributes, record routes, and telemetry streams).<a href="#section-1.1-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
 </section>
 </div>
-<div id="conventions-and-definitions">
-<section id="section-2">
-      <h2 id="name-conventions-and-definitions">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
-      </h2>
-<p id="section-2-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+<div id="scope">
+<section id="section-1.2">
+        <h3 id="name-scope">
+<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-scope" class="section-name selfRef">Scope</a>
+        </h3>
+<p id="section-1.2-1">This document describes:<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-1.2-2.1">
+            <p id="section-1.2-2.1.1">A binding model that maps AIPREF vocabulary elements to SIP dialog state and SDP descriptions.<a href="#section-1.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-1.2-2.2">
+            <p id="section-1.2-2.2.1">A compact token and URI-based encoding carried in SIP header fields and bodies.<a href="#section-1.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-1.2-2.3">
+            <p id="section-1.2-2.3.1">Procedures for preference discovery, negotiation, and error handling across dialogs, subscriptions, and conferencing primitives.<a href="#section-1.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-1.2-2.4">
+            <p id="section-1.2-2.4.1">Operational recommendations for intermediaries, policy servers, and AI enforcement points.<a href="#section-1.2-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-1.2-3">This document does not standardize AI algorithms, privacy-preserving enforcement techniques, or the semantics of individual AIPREF vocabularies beyond referencing existing definitions in other working group documents such as <span>[<a href="#I-D.aipref-network-privacy-control" class="cite xref">I-D.aipref-network-privacy-control</a>]</span>.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="requirements-language">
+<section id="section-1.3">
+        <h3 id="name-requirements-language">
+<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-requirements-language" class="section-name selfRef">Requirements Language</a>
+        </h3>
+<p id="section-1.3-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
-appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+appear in all capitals, as shown here.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="terminology">
+<section id="section-2">
+      <h2 id="name-terminology">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
+      </h2>
+<p id="section-2-1">The terminology defined in RFC3261, RFC3264, and the AIPREF framework documents applies. This document additionally uses the following conventions:<a href="#section-2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-2.1">
+          <p id="section-2-2.1.1"><strong>AI Preference Token (APT)</strong>: A compact, possibly signed representation of one or more AIPREF statements, retrievable via URI or carried inline.<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-2-2.2">
+          <p id="section-2-2.2.1"><strong>Preference Attacher</strong>: The SIP entity that injects an APT into signaling or SDP (e.g., originating user agent, outbound proxy, or application server).<a href="#section-2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-2-2.3">
+          <p id="section-2-2.3.1"><strong>Preference Enforcement Point (PEP)</strong>: A network element or AI component that validates and enforces APT requirements prior to processing protected data.<a href="#section-2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-2-2.4">
+          <p id="section-2-2.4.1"><strong>Real-Time Preference Channel</strong>: Any mechanism that conveys updated APTs after a dialog is established (e.g., re-INVITE, UPDATE, INFO, SUBSCRIBE/NOTIFY pair).<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+</section>
+</div>
+<div id="binding-requirements">
+<section id="section-3">
+      <h2 id="name-binding-requirements">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-binding-requirements" class="section-name selfRef">Binding Requirements</a>
+      </h2>
+<p id="section-3-1">The following requirements guide bindings for SIP and related RTC protocols:<a href="#section-3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-2.1">
+          <p id="section-3-2.1.1"><strong>Visibility</strong>: APTs <span class="bcp14">SHOULD</span> be visible to the entities that are expected to enforce them, including downstream AI assistants. When hop-by-hop protection (e.g., TLS) is applied, intermediaries outside the trust domain <span class="bcp14">MUST NOT</span> rely on APTs they cannot validate.<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-2.2">
+          <p id="section-3-2.2.1"><strong>Integrity</strong>: APTs <span class="bcp14">SHOULD</span> be signed or integrity-protected when transported across untrusted proxies to prevent unauthorized downgrades.<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-2.3">
+          <p id="section-3-2.3.1"><strong>Idempotency</strong>: Repeated delivery of identical APTs <span class="bcp14">MUST NOT</span> cause state divergence. Implementations <span class="bcp14">MAY</span> treat the most recent valid APT as authoritative.<a href="#section-3-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-2.4">
+          <p id="section-3-2.4.1"><strong>Granularity</strong>: Bindings <span class="bcp14">MUST</span> allow preferences scoped to dialogs, media sections, or individual features (e.g., telemetry streams, AI feature lists). APTs therefore include <code>target</code> metadata identifying the scope (dialog-id, media mid, or subscription identifier).<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-2.5">
+          <p id="section-3-2.5.1"><strong>Fallback</strong>: Endpoints that cannot satisfy received preferences <span class="bcp14">MUST</span> reject or redirect the request using standard SIP procedures (e.g., <code>488 Not Acceptable Here</code>) and <span class="bcp14">SHOULD</span> include diagnostic information.<a href="#section-3-2.5.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+</section>
+</div>
+<div id="binding-model">
+<section id="section-4">
+      <h2 id="name-binding-model">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-binding-model" class="section-name selfRef">Binding Model</a>
+      </h2>
+<p id="section-4-1">The model in Figure 1 illustrates how preferences flow through RTC signaling.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2"><code>
+ ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
+ │ Preference   │ APT  │ SIP Binding  │ APT  │ Enforcement  │
+ │ Originator   ├─────▶│ Transport    ├─────▶│ Point / AI   │
+ └──────────────┘      └──────────────┘      └──────────────┘
+         ▲                      │                     │
+         │ Publish / Fetch      │ Dialog signaling    │ Media / Data
+         └──────────────────────┴─────────────────────┘
+</code><a href="#section-4-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-4-3">
+<li id="section-4-3.1">
+          <p id="section-4-3.1.1">An originator (user agent, operator policy engine, or regulator) issues an APT identifier or token.<a href="#section-4-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-4-3.2">
+          <p id="section-4-3.2.1">The preference attacher embeds the token using one or more bindings defined in this document.<a href="#section-4-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-4-3.3">
+          <p id="section-4-3.3.1">Enforcement points inside AI workloads retrieve, validate, and apply the referenced constraints before consuming protected data.<a href="#section-4-3.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ol>
+<p id="section-4-4">Bindings <span class="bcp14">MUST</span> reference the same canonical APT identifier when expressing preferences across signaling and media layers to avoid ambiguity.<a href="#section-4-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sip-signaling-binding">
+<section id="section-5">
+      <h2 id="name-sip-signaling-binding">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-sip-signaling-binding" class="section-name selfRef">SIP Signaling Binding</a>
+      </h2>
+<div id="ai-pref-header-field">
+<section id="section-5.1">
+        <h3 id="name-ai-pref-header-field">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-ai-pref-header-field" class="section-name selfRef">AI-Pref Header Field</a>
+        </h3>
+<p id="section-5.1-1">This document defines the <code>AI-Pref</code> SIP header field. Each instance conveys metadata that allows receivers to retrieve or validate an APT.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2"><code>
+AI-Pref  = "AI-Pref" HCOLON pref-value *(COMMA pref-value)
+pref-value = pref-id *(SEMI pref-param)
+pref-id  = token / quoted-string ; identifier or opaque token
+pref-param = ("scope" EQUAL token) /
+             ("type" EQUAL token) /
+             ("version" EQUAL 1*DIGIT) /
+             ("integrity" EQUAL token) /
+             ("uri" EQUAL LAQUOT absoluteURI RAQUOT)
+</code><a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<div id="usage-rules">
+<section id="section-5.1.1">
+          <h4 id="name-usage-rules">
+<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-usage-rules" class="section-name selfRef">Usage Rules</a>
+          </h4>
+<ol start="1" type="1" class="normal type-1" id="section-5.1.1-1">
+<li id="section-5.1.1-1.1">
+              <p id="section-5.1.1-1.1.1"><strong>Initial INVITE</strong>: The originating user agent server (UAC) <span class="bcp14">SHOULD</span> include an <code>AI-Pref</code> header referencing all preferences that govern AI handling of dialog metadata or media diagnostics. The header <span class="bcp14">MAY</span> appear multiple times when different scopes are advertised (e.g., <code>scope=dialog</code>, <code>scope=media</code>).<a href="#section-5.1.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-5.1.1-1.2">
+              <p id="section-5.1.1-1.2.1"><strong>Provisional Responses</strong>: Proxies and user agent servers (UAS) <span class="bcp14">MAY</span> add <code>AI-Pref</code> headers to responses in order to enumerate additional policies that downstream AI components <span class="bcp14">MUST</span> accept before the session is confirmed.<a href="#section-5.1.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-5.1.1-1.3">
+              <p id="section-5.1.1-1.3.1"><strong>ACK and PRACK</strong>: These messages <span class="bcp14">MUST</span> echo the latest accepted <code>AI-Pref</code> identifiers when the UAS requires confirmation. Absence of <code>AI-Pref</code> in ACK implies acceptance of the most recent set.<a href="#section-5.1.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-5.1.1-1.4">
+              <p id="section-5.1.1-1.4.1"><strong>Mid-Dialog Updates</strong>: Re-INVITE and UPDATE requests <span class="bcp14">MUST</span> include <code>AI-Pref</code> whenever the preference scope of any media stream is modified. This allows AI systems that adapt encoders, perform transcription, or modify layouts to obey updated constraints.<a href="#section-5.1.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-5.1.1-1.5">
+              <p id="section-5.1.1-1.5.1"><strong>SUBSCRIBE/NOTIFY</strong>: Event packages (e.g., dialog package, KPML, presence) <span class="bcp14">MAY</span> carry <code>AI-Pref</code> headers so that AI assistants consuming event payloads adhere to the advertised constraints.<a href="#section-5.1.1-1.5.1" class="pilcrow">¶</a></p>
+</li>
+          </ol>
+</section>
+</div>
+<div id="compact-tokens-and-uris">
+<section id="section-5.1.2">
+          <h4 id="name-compact-tokens-and-uris">
+<a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-compact-tokens-and-uris" class="section-name selfRef">Compact Tokens and URIs</a>
+          </h4>
+<p id="section-5.1.2-1"><code>pref-id</code> values can represent:<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.1.2-2.1">
+              <p id="section-5.1.2-2.1.1">Inline tokens that encode the full preference statement (e.g., CBOR Web Token referencing vocabulary keys).<a href="#section-5.1.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-5.1.2-2.2">
+              <p id="section-5.1.2-2.2.1">Handles that require dereferencing via HTTPS using the <code>uri</code> parameter.<a href="#section-5.1.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-5.1.2-2.3">
+              <p id="section-5.1.2-2.3.1">Versioned identifiers that map to entries in a policy repository.<a href="#section-5.1.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-5.1.2-3">Receivers <span class="bcp14">MUST</span> treat unknown parameters according to RFC3261 rules (ignore them) and <span class="bcp14">MUST NOT</span> assume that the absence of <code>AI-Pref</code> implies permission to process data without AI constraints.<a href="#section-5.1.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="error-handling">
+<section id="section-5.1.3">
+          <h4 id="name-error-handling">
+<a href="#section-5.1.3" class="section-number selfRef">5.1.3. </a><a href="#name-error-handling" class="section-name selfRef">Error Handling</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="section-5.1.3-1.1">
+              <p id="section-5.1.3-1.1.1">If a UAS cannot comply with mandatory preferences, it <span class="bcp14">SHOULD</span> reply with <code>488 Not Acceptable Here</code> and include a <code>Warning</code> header value of <code>399 aipref "Preference unsupported"</code>.<a href="#section-5.1.3-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-5.1.3-1.2">
+              <p id="section-5.1.3-1.2.1">When integrity verification fails, the recipient <span class="bcp14">SHOULD</span> respond with <code>403 Forbidden</code> and <span class="bcp14">MAY</span> include diagnostic details in a <code>Reason</code> header referencing <code>AI-Integrity-Failure</code>.<a href="#section-5.1.3-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-5.1.3-1.3">
+              <p id="section-5.1.3-1.3.1">Gateways that strip <code>AI-Pref</code> <span class="bcp14">MUST</span> insert a <code>History-Info</code> entry explaining the removal so downstream entities understand why enforcement data is missing.<a href="#section-5.1.3-1.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="sip-body-considerations">
+<section id="section-5.2">
+        <h3 id="name-sip-body-considerations">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-sip-body-considerations" class="section-name selfRef">SIP Body Considerations</a>
+        </h3>
+<p id="section-5.2-1">When APTs are too large for header fields, this document RECOMMENDS embedding them inside a multipart body part with media type <code>application/aipref+json</code> or <code>application/aipref+cbor</code> and referencing that part via <code>Content-ID</code>. This allows richer metadata (e.g., signed manifests) without overloading SIP header processing.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="sdp-and-media-binding">
+<section id="section-6">
+      <h2 id="name-sdp-and-media-binding">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-sdp-and-media-binding" class="section-name selfRef">SDP and Media Binding</a>
+      </h2>
+<div id="aaipref-attribute">
+<section id="section-6.1">
+        <h3 id="name-aaipref-attribute">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-aaipref-attribute" class="section-name selfRef"><code>a=aipref</code> Attribute</a>
+        </h3>
+<p id="section-6.1-1">An SDP media description <span class="bcp14">MAY</span> include one or more <code>a=aipref</code> attributes, each binding a specific media stream to an APT identifier.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2"><code>
+a=aipref:&lt;scope&gt; &lt;identifier&gt; [&lt;parameter&gt;=&lt;value&gt; ...]
+</code><a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-3">Valid scopes include <code>session</code>, <code>group</code>, and <code>mid</code>. Parameters align with the AI Pref vocabulary, for example:<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1-4.1">
+            <p id="section-6.1-4.1.1"><code>features=media-metrics,rtcp-xr</code><a href="#section-6.1-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-4.2">
+            <p id="section-6.1-4.2.1"><code>retention=24h</code><a href="#section-6.1-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-4.3">
+            <p id="section-6.1-4.3.1"><code>export=aggregated-only</code><a href="#section-6.1-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-6.1-5">Endpoints <span class="bcp14">MUST</span> ensure that SDP attributes remain consistent with SIP-level <code>AI-Pref</code> headers. If SDP renegotiation removes an attribute, the corresponding AI processing <span class="bcp14">MUST</span> stop or transition to the remaining allowed scope.<a href="#section-6.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="rtp-control-and-telemetry">
+<section id="section-6.2">
+        <h3 id="name-rtp-control-and-telemetry">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-rtp-control-and-telemetry" class="section-name selfRef">RTP Control and Telemetry</a>
+        </h3>
+<p id="section-6.2-1">RTP control protocols such as RTCP, RTCP XR, and RTP/RTCP extensions for feedback may carry AI-relevant telemetry. Implementations <span class="bcp14">SHOULD</span> map telemetry streams to the same APT identifiers declared in SDP by including the identifier in RTCP SDES items or header extensions defined for this purpose. When that is not feasible, implementations <span class="bcp14">MAY</span> rely on the dialog-level <code>AI-Pref</code> scope while documenting the implicit association.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="preference-discovery-and-synchronization">
+<section id="section-7">
+      <h2 id="name-preference-discovery-and-sy">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-preference-discovery-and-sy" class="section-name selfRef">Preference Discovery and Synchronization</a>
+      </h2>
+<div id="retrieval-via-https">
+<section id="section-7.1">
+        <h3 id="name-retrieval-via-https">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-retrieval-via-https" class="section-name selfRef">Retrieval via HTTPS</a>
+        </h3>
+<p id="section-7.1-1">Preferences referenced via <code>uri</code> <span class="bcp14">MUST</span> be retrievable over HTTPS with mutual authentication when sensitive. Servers <span class="bcp14">SHOULD</span> support conditional requests and caching so intermediaries can reuse validated APTs across multiple dialogs.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="repository-interaction">
+<section id="section-7.2">
+        <h3 id="name-repository-interaction">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-repository-interaction" class="section-name selfRef">Repository Interaction</a>
+        </h3>
+<p id="section-7.2-1">Policy repositories <span class="bcp14">MAY</span> expose a REST interface where clients submit dialog metadata (Call-ID, From-tag, To-tag) and receive the authoritative list of applicable APT identifiers. This pattern is especially useful for large conferencing services where centralized policy engines coordinate AI workloads.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="conflict-resolution">
+<section id="section-7.3">
+        <h3 id="name-conflict-resolution">
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-conflict-resolution" class="section-name selfRef">Conflict Resolution</a>
+        </h3>
+<p id="section-7.3-1">When multiple APTs apply to the same resource, the following precedence rules apply unless a policy repository states otherwise:<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-7.3-2">
+<li id="section-7.3-2.1">
+            <p id="section-7.3-2.1.1">User-specific preferences override domain defaults.<a href="#section-7.3-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-7.3-2.2">
+            <p id="section-7.3-2.2.1">Domain-level regulatory requirements override individual relaxations.<a href="#section-7.3-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-7.3-2.3">
+            <p id="section-7.3-2.3.1">The most restrictive constraint wins when two preferences conflict on the same vocabulary key.<a href="#section-7.3-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+<p id="section-7.3-3">Endpoints <span class="bcp14">MAY</span> advertise their conflict-resolution policy through the <code>policy</code> parameter inside <code>AI-Pref</code> headers (e.g., <code>policy=strictest-wins</code>).<a href="#section-7.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="operational-considerations">
+<section id="section-8">
+      <h2 id="name-operational-considerations">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
+      </h2>
+<ul class="normal">
+<li class="normal" id="section-8-1.1">
+          <p id="section-8-1.1.1"><strong>Logging</strong>: Preference attachers <span class="bcp14">SHOULD</span> log emitted APT identifiers alongside Call-ID values to support audits and incident response.<a href="#section-8-1.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-8-1.2">
+          <p id="section-8-1.2.1"><strong>Testing</strong>: Interoperability testing <span class="bcp14">MUST</span> verify that dialogs proceed when <code>AI-Pref</code> is absent, ensuring that legacy devices remain compatible.<a href="#section-8-1.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-8-1.3">
+          <p id="section-8-1.3.1"><strong>Scaling</strong>: Implementations <span class="bcp14">SHOULD</span> compress header fields using SIP over HTTP/3 (RFC9397) or similar transports when large preference sets are common.<a href="#section-8-1.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-8-1.4">
+          <p id="section-8-1.4.1"><strong>Federation</strong>: Peering domains <span class="bcp14">MAY</span> translate local preference identifiers into a shared namespace. Translation <span class="bcp14">MUST NOT</span> weaken constraints without explicit consent from the originator.<a href="#section-8-1.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-3">
+<section id="section-9">
       <h2 id="name-security-considerations">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-3-1">TODO Security<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">Preferences often contain sensitive information about user intent, regulatory exposure, or organizational policy. Therefore:<a href="#section-9-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9-2.1">
+          <p id="section-9-2.1.1">Transport security such as TLS (for SIP over TLS, WebSocket, or HTTP/3) <span class="bcp14">MUST</span> be used whenever an <code>AI-Pref</code> header or body carries tokens that could be replayed or tampered with.<a href="#section-9-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-9-2.2">
+          <p id="section-9-2.2.1">APT signatures <span class="bcp14">SHOULD</span> be validated before AI systems act on the encapsulated instructions. Validation includes issuer authentication, expiration checks, and revocation status.<a href="#section-9-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-9-2.3">
+          <p id="section-9-2.3.1">Implementations <span class="bcp14">MUST</span> guard against downgrade attacks where a malicious intermediary strips <code>AI-Pref</code> headers. Techniques include SIPS-only routing, end-to-end integrity with S/MIME, or redundant signaling through policy repositories.<a href="#section-9-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-9-2.4">
+          <p id="section-9-2.4.1">Preference tokens <span class="bcp14">SHOULD</span> minimize personally identifiable information. Instead of embedding explicit user identifiers, use pseudonymous handles that map to access-controlled directories.<a href="#section-9-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-9-2.5">
+          <p id="section-9-2.5.1">Systems <span class="bcp14">MUST</span> treat AI enforcement failures as security incidents when they result in unauthorized data processing. Telemetry <span class="bcp14">SHOULD</span> be rate-limited to avoid revealing preference patterns to attackers probing the signaling fabric.<a href="#section-9-2.5.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<div id="privacy-and-enduser-impact-considerations">
+<section id="section-9.1">
+        <h3 id="name-privacy-and-enduser-impact-">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-privacy-and-enduser-impact-" class="section-name selfRef">Privacy and End‑User Impact Considerations</a>
+        </h3>
+<p id="section-9.1-1">Real‑time and session‑oriented communication protocols (e.g., SIP, SDP, WebRTC, RTP/RTCP, QUIC‑RTC) directly mediate human‑to‑human interaction. Introducing AI‑usage preference signaling into these protocols therefore has immediate consequences for end users, including creators, participants, accessibility users, researchers, and the general public. This section outlines considerations necessary to ensure that AIPREF signaling in real‑time environments does not unintentionally restrict legitimate uses, undermine user autonomy, or create new privacy risks.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<div id="impact-on-user-autonomy-and-consent">
+<section id="section-9.1.1">
+          <h4 id="name-impact-on-user-autonomy-and">
+<a href="#section-9.1.1" class="section-number selfRef">9.1.1. </a><a href="#name-impact-on-user-autonomy-and" class="section-name selfRef">Impact on User Autonomy and Consent</a>
+          </h4>
+<p id="section-9.1.1-1">AI‑usage preferences expressed at the signaling or media layer may be interpreted as binding restrictions by downstream systems. Implementations <span class="bcp14">MUST</span> ensure that:<a href="#section-9.1.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.1.1-2.1">
+              <p id="section-9.1.1-2.1.1">Preferences are treated as expressions of intent, not as access‑control mechanisms.<a href="#section-9.1.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.1-2.2">
+              <p id="section-9.1.1-2.2.1">End users retain the ability to override platform‑imposed defaults when they are the originators of the content.<a href="#section-9.1.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.1-2.3">
+              <p id="section-9.1.1-2.3.1">Intermediaries (e.g., conferencing platforms, SIP proxies, TURN servers, media mixers) do not silently substitute or modify user‑provided preferences.<a href="#section-9.1.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-9.1.1-3">Because real‑time sessions often involve multiple participants, systems <span class="bcp14">SHOULD</span> provide clear and accessible mechanisms for users to understand what AI‑related preferences are being signaled on their behalf.<a href="#section-9.1.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="avoiding-overrestriction-of-beneficial-uses">
+<section id="section-9.1.2">
+          <h4 id="name-avoiding-overrestriction-of">
+<a href="#section-9.1.2" class="section-number selfRef">9.1.2. </a><a href="#name-avoiding-overrestriction-of" class="section-name selfRef">Avoiding Over‑Restriction of Beneficial Uses</a>
+          </h4>
+<p id="section-9.1.2-1">Real‑time communication is frequently used for accessibility (captioning, translation), education, archiving, and research. Overly broad or ambiguous preference categories—particularly those related to “AI Input” or “AI Training”—may unintentionally block beneficial, lawful, or expected uses.<a href="#section-9.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.1.2-2">Implementations <span class="bcp14">SHOULD</span>:<a href="#section-9.1.2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.1.2-3.1">
+              <p id="section-9.1.2-3.1.1">Distinguish between AI‑assisted user features (e.g., live transcription) and model‑building uses (e.g., training).<a href="#section-9.1.2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.2-3.2">
+              <p id="section-9.1.2-3.2.1">Avoid treating a single preference (e.g., <code>ai-input=n</code>) as a blanket prohibition on all automated processing.<a href="#section-9.1.2-3.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.2-3.3">
+              <p id="section-9.1.2-3.3.1">Provide clear documentation on how preferences interact with accessibility features.<a href="#section-9.1.2-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-9.1.2-4">Preference categories defined in AIPREF vocabulary drafts (e.g., <code>search</code>, <code>ai-input</code>, <code>ai-train</code>) <span class="bcp14">SHOULD</span> be interpreted narrowly and consistently.<a href="#section-9.1.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="transparency-to-participants">
+<section id="section-9.1.3">
+          <h4 id="name-transparency-to-participant">
+<a href="#section-9.1.3" class="section-number selfRef">9.1.3. </a><a href="#name-transparency-to-participant" class="section-name selfRef">Transparency to Participants</a>
+          </h4>
+<p id="section-9.1.3-1">Real‑time sessions may involve dynamic negotiation (e.g., via SDP offer/answer). When AI‑usage preferences are conveyed:<a href="#section-9.1.3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.1.3-2.1">
+              <p id="section-9.1.3-2.1.1">Endpoints <span class="bcp14">SHOULD</span> surface these preferences to human participants in a clear and non‑technical manner.<a href="#section-9.1.3-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.3-2.2">
+              <p id="section-9.1.3-2.2.1">Systems <span class="bcp14">SHOULD</span> indicate when preferences differ between participants or when intermediaries have applied additional constraints.<a href="#section-9.1.3-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.3-2.3">
+              <p id="section-9.1.3-2.3.1">If preferences affect session features (e.g., disabling transcription), participants <span class="bcp14">SHOULD</span> be notified.<a href="#section-9.1.3-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-9.1.3-3">Lack of transparency may create a chilling effect, where users avoid lawful or beneficial uses due to uncertainty.<a href="#section-9.1.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="intermediary-handling-and-privacy-leakage">
+<section id="section-9.1.4">
+          <h4 id="name-intermediary-handling-and-p">
+<a href="#section-9.1.4" class="section-number selfRef">9.1.4. </a><a href="#name-intermediary-handling-and-p" class="section-name selfRef">Intermediary Handling and Privacy Leakage</a>
+          </h4>
+<p id="section-9.1.4-1">Signaling AI‑usage preferences at the session layer may inadvertently reveal information about user intent, content sensitivity, or organizational policy. For example, a preference of <code>ai-train=n</code> may imply that the content is proprietary or confidential.<a href="#section-9.1.4-1" class="pilcrow">¶</a></p>
+<p id="section-9.1.4-2">To mitigate this:<a href="#section-9.1.4-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.1.4-3.1">
+              <p id="section-9.1.4-3.1.1">Intermediaries <span class="bcp14">MUST NOT</span> add, remove, or alter AI‑usage preferences unless explicitly authorized by the originating endpoint.<a href="#section-9.1.4-3.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.4-3.2">
+              <p id="section-9.1.4-3.2.1">Preferences <span class="bcp14">SHOULD</span> be encrypted or integrity‑protected when carried in protocols that support such mechanisms (e.g., DTLS‑SRTP, QUIC).<a href="#section-9.1.4-3.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.4-3.3">
+              <p id="section-9.1.4-3.3.1">Implementations <span class="bcp14">SHOULD</span> avoid exposing preferences in logs, analytics, or telemetry unless necessary and with appropriate safeguards.<a href="#section-9.1.4-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="compatibility-with-archiving-and-research">
+<section id="section-9.1.5">
+          <h4 id="name-compatibility-with-archivin">
+<a href="#section-9.1.5" class="section-number selfRef">9.1.5. </a><a href="#name-compatibility-with-archivin" class="section-name selfRef">Compatibility with Archiving and Research</a>
+          </h4>
+<p id="section-9.1.5-1">Real‑time communication is often recorded for compliance, education, or archival purposes. AI‑usage preferences <span class="bcp14">SHOULD NOT</span> be interpreted as prohibiting:<a href="#section-9.1.5-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.1.5-2.1">
+              <p id="section-9.1.5-2.1.1">lawful archiving,<a href="#section-9.1.5-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.5-2.2">
+              <p id="section-9.1.5-2.2.1">time‑shifted review,<a href="#section-9.1.5-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.5-2.3">
+              <p id="section-9.1.5-2.3.1">accessibility processing, or<a href="#section-9.1.5-2.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.5-2.4">
+              <p id="section-9.1.5-2.4.1">research uses permitted by local law.<a href="#section-9.1.5-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-9.1.5-3">Where preferences do apply to stored recordings, systems <span class="bcp14">SHOULD</span> preserve the preferences alongside the stored media, consistent with the behavior defined in draft‑ietf‑aipref‑attach for HTTP representations.<a href="#section-9.1.5-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="avoiding-platformlevel-overreach">
+<section id="section-9.1.6">
+          <h4 id="name-avoiding-platformlevel-over">
+<a href="#section-9.1.6" class="section-number selfRef">9.1.6. </a><a href="#name-avoiding-platformlevel-over" class="section-name selfRef">Avoiding Platform‑Level Overreach</a>
+          </h4>
+<p id="section-9.1.6-1">Large communication platforms may be tempted to apply AI‑usage preferences globally on behalf of users. This can undermine user autonomy and distort the intent of AIPREF.<a href="#section-9.1.6-1" class="pilcrow">¶</a></p>
+<p id="section-9.1.6-2">Platforms <span class="bcp14">SHOULD</span>:<a href="#section-9.1.6-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.1.6-3.1">
+              <p id="section-9.1.6-3.1.1">Allow per‑participant and per‑stream preferences.<a href="#section-9.1.6-3.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.6-3.2">
+              <p id="section-9.1.6-3.2.1">Avoid applying organization‑wide defaults without clear user visibility.<a href="#section-9.1.6-3.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.6-3.3">
+              <p id="section-9.1.6-3.3.1">Provide APIs for endpoints to express their own preferences without mediation.<a href="#section-9.1.6-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="interoperability-and-open-ecosystem-considerations">
+<section id="section-9.1.7">
+          <h4 id="name-interoperability-and-open-e">
+<a href="#section-9.1.7" class="section-number selfRef">9.1.7. </a><a href="#name-interoperability-and-open-e" class="section-name selfRef">Interoperability and Open Ecosystem Considerations</a>
+          </h4>
+<p id="section-9.1.7-1">Real‑time protocols are used across diverse environments, including open‑source clients, small organizations, and global platforms. To avoid fragmentation:<a href="#section-9.1.7-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.1.7-2.1">
+              <p id="section-9.1.7-2.1.1">Preferences <span class="bcp14">SHOULD</span> be optional and non‑blocking.<a href="#section-9.1.7-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.7-2.2">
+              <p id="section-9.1.7-2.2.1">Absence of a preference <span class="bcp14">MUST NOT</span> be interpreted as consent.<a href="#section-9.1.7-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.7-2.3">
+              <p id="section-9.1.7-2.3.1">Implementations <span class="bcp14">SHOULD</span> follow the vocabulary and semantics defined in AIPREF drafts to ensure consistent interpretation across ecosystems.<a href="#section-9.1.7-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+</section>
+</div>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-4">
+<section id="section-10">
       <h2 id="name-iana-considerations">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-4-1">This document has no IANA actions.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-10-1">IANA is requested to perform the following actions.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<div id="sip-header-field-registration">
+<section id="section-10.1">
+        <h3 id="name-sip-header-field-registrati">
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-sip-header-field-registrati" class="section-name selfRef">SIP Header Field Registration</a>
+        </h3>
+<p id="section-10.1-1">Register the <code>AI-Pref</code> header field in the "Header Fields" sub-registry under "Session Initiation Protocol (SIP) Parameters" with the following values:<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-10.1-2.1">
+            <p id="section-10.1-2.1.1">Header Name: AI-Pref<a href="#section-10.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.1-2.2">
+            <p id="section-10.1-2.2.1">Compact Form: none<a href="#section-10.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.1-2.3">
+            <p id="section-10.1-2.3.1">Reference: This document<a href="#section-10.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
-<div id="sec-normative-references">
-<section id="section-5">
-      <h2 id="name-normative-references">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<div id="sdp-attribute-registration">
+<section id="section-10.2">
+        <h3 id="name-sdp-attribute-registration">
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-sdp-attribute-registration" class="section-name selfRef">SDP Attribute Registration</a>
+        </h3>
+<p id="section-10.2-1">Register the <code>aipref</code> attribute in the "att-field (media level only)" registry defined by RFC4566 with the following values:<a href="#section-10.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-10.2-2.1">
+            <p id="section-10.2-2.1.1">Attribute name: aipref<a href="#section-10.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.2-2.2">
+            <p id="section-10.2-2.2.1">Type of attribute: media / session<a href="#section-10.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.2-2.3">
+            <p id="section-10.2-2.3.1">Subject to charset: no<a href="#section-10.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.2-2.4">
+            <p id="section-10.2-2.4.1">Purpose: Associates SDP media sections with AI preference tokens<a href="#section-10.2-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.2-2.5">
+            <p id="section-10.2-2.5.1">Reference: This document<a href="#section-10.2-2.5.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="section-11">
+      <h2 id="name-acknowledgments">
+<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
+<p id="section-11-1">This work is informed by discussions within the AIPREF working group, including contributions on network privacy controls and media quality automation.<a href="#section-11-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-combined-references">
+<section id="section-12">
+      <h2 id="name-references">
+<a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<div id="sec-normative-references">
+<section id="section-12.1">
+        <h3 id="name-normative-references">
+<a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC3261">[RFC3261]</dt>
+        <dd>
+<span class="refAuthor">Rosenberg, J.</span>, <span class="refAuthor">Schulzrinne, H.</span>, <span class="refAuthor">Camarillo, G.</span>, <span class="refAuthor">Johnston, A.</span>, <span class="refAuthor">Peterson, J.</span>, <span class="refAuthor">Sparks, R.</span>, <span class="refAuthor">Handley, M.</span>, and <span class="refAuthor">E. Schooler</span>, <span class="refTitle">"SIP: Session Initiation Protocol"</span>, <span class="seriesInfo">RFC 3261</span>, <span class="seriesInfo">DOI 10.17487/RFC3261</span>, <time datetime="2002-06" class="refDate">June 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3261">https://www.rfc-editor.org/rfc/rfc3261</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3264">[RFC3264]</dt>
+        <dd>
+<span class="refAuthor">Rosenberg, J.</span> and <span class="refAuthor">H. Schulzrinne</span>, <span class="refTitle">"An Offer/Answer Model with Session Description Protocol (SDP)"</span>, <span class="seriesInfo">RFC 3264</span>, <span class="seriesInfo">DOI 10.17487/RFC3264</span>, <time datetime="2002-06" class="refDate">June 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3264">https://www.rfc-editor.org/rfc/rfc3264</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3311">[RFC3311]</dt>
+        <dd>
+<span class="refAuthor">Rosenberg, J.</span>, <span class="refTitle">"The Session Initiation Protocol (SIP) UPDATE Method"</span>, <span class="seriesInfo">RFC 3311</span>, <span class="seriesInfo">DOI 10.17487/RFC3311</span>, <time datetime="2002-10" class="refDate">October 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3311">https://www.rfc-editor.org/rfc/rfc3311</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6665">[RFC6665]</dt>
+        <dd>
+<span class="refAuthor">Roach, A.B.</span>, <span class="refTitle">"SIP-Specific Event Notification"</span>, <span class="seriesInfo">RFC 6665</span>, <span class="seriesInfo">DOI 10.17487/RFC6665</span>, <time datetime="2012-07" class="refDate">July 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6665">https://www.rfc-editor.org/rfc/rfc6665</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-    <dd>
+        <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8830">[RFC8830]</dt>
+      <dd>
+<span class="refAuthor">Alvestrand, H.</span>, <span class="refTitle">"WebRTC MediaStream Identification in the Session Description Protocol"</span>, <span class="seriesInfo">RFC 8830</span>, <span class="seriesInfo">DOI 10.17487/RFC8830</span>, <time datetime="2021-01" class="refDate">January 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8830">https://www.rfc-editor.org/rfc/rfc8830</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
 </div>
-<div id="acknowledgments">
-<section id="appendix-A">
-      <h2 id="name-acknowledgments">
-<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
-      </h2>
-<p id="appendix-A-1">TODO acknowledge.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<div id="sec-informative-references">
+<section id="section-12.2">
+        <h3 id="name-informative-references">
+<a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.aipref-network-privacy-control">[I-D.aipref-network-privacy-control]</dt>
+        <dd>
+<span class="refTitle">"*** BROKEN REFERENCE ***"</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3265">[RFC3265]</dt>
+        <dd>
+<span class="refAuthor">Roach, A. B.</span>, <span class="refTitle">"Session Initiation Protocol (SIP)-Specific Event Notification"</span>, <span class="seriesInfo">RFC 3265</span>, <span class="seriesInfo">DOI 10.17487/RFC3265</span>, <time datetime="2002-06" class="refDate">June 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3265">https://www.rfc-editor.org/rfc/rfc3265</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4566">[RFC4566]</dt>
+        <dd>
+<span class="refAuthor">Handley, M.</span>, <span class="refAuthor">Jacobson, V.</span>, and <span class="refAuthor">C. Perkins</span>, <span class="refTitle">"SDP: Session Description Protocol"</span>, <span class="seriesInfo">RFC 4566</span>, <span class="seriesInfo">DOI 10.17487/RFC4566</span>, <time datetime="2006-07" class="refDate">July 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4566">https://www.rfc-editor.org/rfc/rfc4566</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7587">[RFC7587]</dt>
+        <dd>
+<span class="refAuthor">Spittka, J.</span>, <span class="refAuthor">Vos, K.</span>, and <span class="refAuthor">JM. Valin</span>, <span class="refTitle">"RTP Payload Format for the Opus Speech and Audio Codec"</span>, <span class="seriesInfo">RFC 7587</span>, <span class="seriesInfo">DOI 10.17487/RFC7587</span>, <time datetime="2015-06" class="refDate">June 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7587">https://www.rfc-editor.org/rfc/rfc7587</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8831">[RFC8831]</dt>
+      <dd>
+<span class="refAuthor">Jesup, R.</span>, <span class="refAuthor">Loreto, S.</span>, and <span class="refAuthor">M. Tüxen</span>, <span class="refTitle">"WebRTC Data Channels"</span>, <span class="seriesInfo">RFC 8831</span>, <span class="seriesInfo">DOI 10.17487/RFC8831</span>, <time datetime="2021-01" class="refDate">January 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8831">https://www.rfc-editor.org/rfc/rfc8831</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-B">
+<section id="appendix-A">
       <h2 id="name-authors-address">
 <a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
       </h2>
 <address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">Your Name Here</span></div>
-<div dir="auto" class="left"><span class="org">Your Organization Here</span></div>
+        <div dir="auto" class="left"><span class="fn nameRole">Altanai Bisht</span></div>
+<div dir="auto" class="left"><span class="org">Cisco Meraki</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:your.email@example.com" class="email">your.email@example.com</a>
+<a href="mailto:albisht@cisco.com" class="email">albisht@cisco.com</a>
 </div>
 </address>
 </section>
