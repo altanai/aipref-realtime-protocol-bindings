@@ -201,6 +201,7 @@ Preferences referenced via `uri` MUST be retrievable over HTTPS with mutual auth
 Policy repositories MAY expose a REST interface where clients submit dialog metadata (Call-ID, From-tag, To-tag) and receive the authoritative list of applicable APT identifiers. This pattern is especially useful for large conferencing services where centralized policy engines coordinate AI workloads.
 
 ## Conflict Resolution
+{#conflict-resolution}
 
 When multiple APTs apply to the same resource, the following precedence rules apply unless a policy repository states otherwise:
 
@@ -251,7 +252,13 @@ Implementations SHOULD:
 * Avoid treating a single preference (e.g., `ai-input=n`) as a blanket prohibition on all automated processing.
 * Provide clear documentation on how preferences interact with accessibility features.
 
-Preference categories defined in AIPREF vocabulary drafts (e.g., `search`, `ai-input`, `ai-train`) SHOULD be interpreted narrowly and consistently.
+Preference categories defined in AIPREF vocabulary drafts (e.g., `search`, `ai-input`, `ai-train` / `train-ai`) SHOULD be interpreted narrowly and consistently. Category triggering MUST be based on observed processing behavior, not on product labels or marketing terms. In particular:
+
+* Presentation of indexed session artifacts with links or short excerpts that direct participants to the source (for example, meeting-search hit lists) is evaluated under `search` when that vocabulary applies.
+* Using retrieved session content as grounding or context for generated answers triggers the applicable inference/use category in addition to any `search` trigger.
+* Updating model weights or other long-term model state from session content, interaction logs, or derived embeddings triggers `train-ai` (or a more specific training category when present).
+
+When multiple categories are triggered, implementations MUST evaluate declared preferences for each triggered category and resolve conflicts using the precedence rules in {{conflict-resolution}}. Appendix A provides a non-normative decision tree and edge-case matrix for classification consistency.
 
 ### Transparency to Participants
 
@@ -327,4 +334,63 @@ Register the `aipref` attribute in the "att-field (media level only)" registry d
 # Acknowledgments
 {:numbered="false"}
 
-This work is informed by discussions within the AIPREF working group, including contributions on network privacy controls and media quality automation.
+This work is informed by discussions within the AIPREF working group, including contributions on network privacy controls and media quality automation. Related vocabulary-boundary discussions (including search versus training overlap) also informed Appendix A.
+
+--- back
+
+# Category Trigger Decision Tree and Edge-Case Matrix
+{:numbered="false"}
+
+This appendix is non-normative. It helps implementers determine which AIPREF categories are triggered by observed behavior in real-time systems, then evaluate preferences for all triggered categories. It complements WG vocabulary discussion on `search` / `train-ai` boundary cases.
+
+## Decision Tree
+
+1. Identify the operation performed on content:
+   - Acquisition only (capture/store without a use decision)
+   - Retrieval, indexing, or ranking for search presentation
+   - Grounding or context injection for generated output
+   - Model update or parameter adaptation
+2. If the operation directs users to source locations via links and associated search content, trigger `search`.
+3. If content is used as grounding or context to generate answers, trigger the applicable inference/use category.
+4. If the operation updates model weights or long-term model state, trigger `train-ai` (or a more specific training category if present).
+5. Evaluate declared preference values (`allowed`, `disallowed`, `unknown`) for every triggered category.
+6. If outcomes differ across triggered categories, apply the combination and specificity rules in {{conflict-resolution}} (strictest-wins unless a stated policy says otherwise).
+
+Category trigger is behavior-based, not keyword-based. Labels in signaling artifacts are inputs to evaluation; triggering reflects what the system actually does with content.
+
+## Worked Examples
+
+### Example A: Search Snippet Only
+
+- Behavior: index and retrieve recorded-session hits; show links or short snippets; no grounding; no model update
+- Triggered categories: `search`
+- Notes: if snippets remain within search presentation behavior, no `train-ai` trigger occurs
+
+### Example B: Search Plus Grounded Answer
+
+- Behavior: retrieve session sources, then generate an assistant answer with grounded context and citations
+- Triggered categories: `search` plus the applicable inference/use category
+- Notes: primary overlap case; both preferences must be evaluated
+
+### Example C: Search Plus Continuous Learning
+
+- Behavior: ranking or recommendation model updated from interaction logs derived from session content usage
+- Triggered categories: `search` plus `train-ai`
+- Notes: stress case for precedence when `search` is allowed but `train-ai` is disallowed
+
+## Edge-Case Matrix
+
+The following representative scenarios use expected effective results of Allowed, Disallowed, or Unknown. Ambiguity notes flag cases where current vocabulary text may not yet yield a stable interpretation across reviewers.
+
+| ID | Input source | Processing stage | Output behavior | Categories triggered | Declared preferences (example) | Expected effective result | Rationale / ambiguity |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| EC-1 | Stored session / hybrid | indexing + retrieval | link or snippet only | `search` | `search=y` | Allowed | Classic search presentation; no training or generation |
+| EC-2 | Stored session / hybrid | retrieval + grounding + generation | generated answer with citations | `search` + inference/use | `search=y`, inference=`n` | Disallowed | Grounded generation is blocked even if search is allowed |
+| EC-3 | Interaction logs from crawler- or user-sourced sessions | ranking model update | ranking scores only | `search` + `train-ai` | `search=y`, `train-ai=n` | Disallowed | Continuous learning triggers training category; strictest-wins |
+| EC-4 | User-supplied prompt plus crawler-sourced context | grounding + generation | generated answer | inference/use (+ `search` if retrieval UI present) | inference=`n` | Disallowed | Hybrid input does not waive inference preference on retrieved context |
+| EC-5 | Crawler-sourced corpus | test-time adaptation | adapted model outputs | `train-ai` (or adaptation-specific category) | `train-ai=n` | Disallowed / Unknown | Under-specified if adaptation is not clearly "model update" in vocabulary text |
+| EC-6 | Session content | embedding cache for RAG | cached vectors used later for retrieval | `search` and/or `train-ai` | `search=y`, `train-ai=n` | Unknown | Ambiguity: embedding cache may be treated as search-internal processing or as lasting derived state |
+| EC-7 | Live or recorded media | accessibility transform of excerpts | captions / transformed snippets | typically neither `search` nor `train-ai` alone | accessibility allowed by policy | Allowed | Beneficial accessibility processing SHOULD remain available; see privacy considerations |
+| EC-8 | Dialog telemetry | media-metrics feature under APT scope | QoE analytics only | scoped by APT `features` | APT forbids export beyond aggregated metrics | Allowed only within APT | Binding-scoped example: enforce APT granularity rather than vocabulary overlap |
+
+Independent reviewers SHOULD be able to classify EC-1 through EC-4 and EC-7 consistently using the decision tree above. EC-5 and EC-6 remain explicitly tied to open vocabulary-boundary discussion and SHOULD be marked Unknown until the base AIPREF definitions stabilize.
