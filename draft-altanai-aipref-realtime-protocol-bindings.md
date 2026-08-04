@@ -44,7 +44,8 @@ informative:
   RFC4566:
   RFC7587:
   RFC8831:
-  I-D.aipref-network-privacy-control:
+  I-D.ietf-aipref-vocab:
+  I-D.ietf-aipref-attach:
 
 ...
 
@@ -78,7 +79,7 @@ This document describes:
 - Procedures for preference discovery, negotiation, and error handling across dialogs, subscriptions, and conferencing primitives.
 - Operational recommendations for intermediaries, policy servers, and AI enforcement points.
 
-This document does not standardize AI algorithms, privacy-preserving enforcement techniques, or the semantics of individual AIPREF vocabularies beyond referencing existing definitions in other working group documents such as [I-D.aipref-network-privacy-control].
+This document does not standardize AI algorithms, privacy-preserving enforcement techniques, or the semantics of individual AIPREF vocabularies beyond referencing existing definitions in other working group documents such as [I-D.ietf-aipref-vocab] and [I-D.ietf-aipref-attach].
 
 ## Requirements Language
 
@@ -351,7 +352,7 @@ Real‑time communication is often recorded for compliance, education, or archiv
 * accessibility processing, or
 * research uses permitted by local law.
 
-Where preferences do apply to stored recordings, systems SHOULD preserve the preferences alongside the stored media, consistent with the behavior defined in draft‑ietf‑aipref‑attach for HTTP representations.
+Where preferences do apply to stored recordings, systems SHOULD preserve the preferences alongside the stored media, consistent with the behavior defined in [I-D.ietf-aipref-attach] for HTTP representations.
 
 ### Avoiding Platform‑Level Overreach
 
@@ -401,7 +402,6 @@ This work is informed by discussions within the AIPREF working group, including 
 --- back
 
 # Category Trigger Decision Tree and Edge-Case Matrix
-{:numbered="false"}
 
 This appendix is non-normative. It helps implementers determine which AIPREF categories are triggered by observed behavior in real-time systems, then evaluate preferences for all triggered categories. It complements WG vocabulary discussion on `search` / `train-ai` boundary cases.
 
@@ -422,7 +422,7 @@ This appendix is non-normative. It helps implementers determine which AIPREF cat
               v
   Evaluate preference for EACH triggered category
               |
-              +-- conflicting outcomes? -- yes --> apply {{conflict-resolution}}
+              +-- conflicting outcomes? -- yes --> Conflict Resolution
               |
               v
          Effective result (allowed / disallowed / unknown)
