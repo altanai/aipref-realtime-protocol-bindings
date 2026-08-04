@@ -105,23 +105,42 @@ The following requirements guide bindings for SIP and related RTC protocols:
 
 # Binding Model
 
-The model in Figure 1 illustrates how preferences flow through RTC signaling.
+The model in {{fig-binding-flow}} illustrates how preferences flow through RTC signaling.
 
-```
- ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
- │ Preference   │ APT  │ SIP Binding  │ APT  │ Enforcement  │
- │ Originator   ├─────▶│ Transport    ├─────▶│ Point / AI   │
- └──────────────┘      └──────────────┘      └──────────────┘
-         ▲                      │                     │
-         │ Publish / Fetch      │ Dialog signaling    │ Media / Data
-         └──────────────────────┴─────────────────────┘
-```
+~~~
+  +----------------+   APT    +----------------+   APT    +----------------+
+  | Preference     |--------->| SIP / SDP      |--------->| Enforcement    |
+  | Originator     |          | Binding        |          | Point / AI     |
+  +----------------+          +----------------+          +----------------+
+           ^                         |                            |
+           | Publish / Fetch         | Dialog signaling           | Media / Data
+           +-------------------------+----------------------------+
+~~~
+{: #fig-binding-flow title="APT flow from originator through SIP/SDP binding to enforcement"}
 
 1. An originator (user agent, operator policy engine, or regulator) issues an APT identifier or token.
 2. The preference attacher embeds the token using one or more bindings defined in this document.
 3. Enforcement points inside AI workloads retrieve, validate, and apply the referenced constraints before consuming protected data.
 
-Bindings MUST reference the same canonical APT identifier when expressing preferences across signaling and media layers to avoid ambiguity.
+Bindings MUST reference the same canonical APT identifier when expressing preferences across signaling and media layers to avoid ambiguity. {{fig-layer-binding}} shows how dialog-scoped and media-scoped bindings share one APT identity.
+
+~~~
+                    +--------------------------------------+
+                    |           SIP Dialog                 |
+                    |  AI-Pref: apt-42;scope=dialog        |
+                    +------------------+-------------------+
+                                       |
+                     same APT identity | apt-42
+                                       v
+                    +--------------------------------------+
+                    |              SDP                     |
+                    |  m=audio ...                         |
+                    |  a=aipref:mid apt-42 features=...    |
+                    |  m=video ...                         |
+                    |  a=aipref:mid apt-42 retention=24h   |
+                    +--------------------------------------+
+~~~
+{: #fig-layer-binding title="Shared APT identity across SIP header and SDP attributes"}
 
 # SIP Signaling Binding
 
@@ -142,7 +161,28 @@ pref-param = ("scope" EQUAL token) /
 
 ### Usage Rules
 
-1. **Initial INVITE**: The originating user agent server (UAC) SHOULD include an `AI-Pref` header referencing all preferences that govern AI handling of dialog metadata or media diagnostics. The header MAY appear multiple times when different scopes are advertised (e.g., `scope=dialog`, `scope=media`).
+{{fig-sip-call-flow}} shows a representative call flow for advertising and confirming `AI-Pref` during dialog establishment and a mid-dialog update.
+
+~~~
+  UAC                         Proxy / AS                      UAS / PEP
+   |                              |                              |
+   |------- INVITE AI-Pref ------>|------ INVITE AI-Pref ------->|
+   |       (scope=dialog)         |                              |
+   |                              |<----- 183/200 AI-Pref -------|
+   |<------ 183/200 AI-Pref ------|      (domain policies)       |
+   |                              |                              |
+   |------------- ACK / PRACK (echo accepted APT ids) ---------->|
+   |                              |                              |
+   |======= early / confirmed media + AI enforcement ============|
+   |                              |                              |
+   |------ UPDATE AI-Pref ------->|------ UPDATE AI-Pref ------->|
+   |  (e.g., enable transcription |                              |
+   |   scope change)              |<----- 200 OK AI-Pref --------|
+   |<----- 200 OK AI-Pref --------|                              |
+~~~
+{: #fig-sip-call-flow title="SIP call flow with AI-Pref on INVITE, response, and mid-dialog UPDATE"}
+
+1. **Initial INVITE**: The originating user agent client (UAC) SHOULD include an `AI-Pref` header referencing all preferences that govern AI handling of dialog metadata or media diagnostics. The header MAY appear multiple times when different scopes are advertised (e.g., `scope=dialog`, `scope=media`).
 2. **Provisional Responses**: Proxies and user agent servers (UAS) MAY add `AI-Pref` headers to responses in order to enumerate additional policies that downstream AI components MUST accept before the session is confirmed.
 3. **ACK and PRACK**: These messages MUST echo the latest accepted `AI-Pref` identifiers when the UAS requires confirmation. Absence of `AI-Pref` in ACK implies acceptance of the most recent set.
 4. **Mid-Dialog Updates**: Re-INVITE and UPDATE requests MUST include `AI-Pref` whenever the preference scope of any media stream is modified. This allows AI systems that adapt encoders, perform transcription, or modify layouts to obey updated constraints.
@@ -208,6 +248,28 @@ When multiple APTs apply to the same resource, the following precedence rules ap
 1. User-specific preferences override domain defaults.
 2. Domain-level regulatory requirements override individual relaxations.
 3. The most restrictive constraint wins when two preferences conflict on the same vocabulary key.
+
+{{fig-conflict-precedence}} summarizes the default evaluation order.
+
+~~~
+  Incoming APTs for same target
+              |
+              v
+  +---------------------------+
+  | Regulatory / domain MUST  |  -- overrides weaker relaxations
+  +-------------+-------------+
+                |
+                v
+  +---------------------------+
+  | User-specific preferences |  -- override ordinary domain defaults
+  +-------------+-------------+
+                |
+                v
+  +---------------------------+
+  | Strictest-wins on same key|  -- final effective constraint
+  +---------------------------+
+~~~
+{: #fig-conflict-precedence title="Default APT conflict-resolution precedence"}
 
 Endpoints MAY advertise their conflict-resolution policy through the `policy` parameter inside `AI-Pref` headers (e.g., `policy=strictest-wins`).
 
@@ -344,6 +406,28 @@ This work is informed by discussions within the AIPREF working group, including 
 This appendix is non-normative. It helps implementers determine which AIPREF categories are triggered by observed behavior in real-time systems, then evaluate preferences for all triggered categories. It complements WG vocabulary discussion on `search` / `train-ai` boundary cases.
 
 ## Decision Tree
+
+{{fig-category-trigger}} summarizes the behavior-based trigger flow; the numbered steps below match the diagram.
+
+~~~
+  Observe operation on content
+              |
+              +-- links / snippets to source? ---- yes --> trigger search
+              |
+              +-- used as grounding for generation? -- yes --> trigger inference/use
+              |
+              +-- updates model weights / long-term
+              |   model state? -------------------- yes --> trigger train-ai
+              |
+              v
+  Evaluate preference for EACH triggered category
+              |
+              +-- conflicting outcomes? -- yes --> apply {{conflict-resolution}}
+              |
+              v
+         Effective result (allowed / disallowed / unknown)
+~~~
+{: #fig-category-trigger title="Non-normative category trigger decision flow"}
 
 1. Identify the operation performed on content:
    - Acquisition only (capture/store without a use decision)
