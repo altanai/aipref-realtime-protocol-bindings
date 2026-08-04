@@ -9,25 +9,26 @@
 <meta content="
        This document defines how Artificial Intelligence (AI) preference expressions are bound to signaling and media protocols used for real-time, session-based communications such as the Session Initiation Protocol (SIP) and associated Session Description Protocol (SDP) offers. It specifies a reusable binding model, concrete SIP header field conventions, and SDP attributes that allow endpoints, intermediary services, and AI assistants to advertise, negotiate, and enforce requirements about AI-driven processing of session metadata, media control events, and telemetry. The goal is to align real-time protocol behavior with the AI Preferences (AIPREF) vocabulary without disrupting existing call control semantics. 
     " name="description">
-<meta content="xml2rfc 3.31.0" name="generator">
+<meta content="xml2rfc 3.34.0" name="generator">
 <meta content="AI preferences" name="keyword">
 <meta content="realtime communications" name="keyword">
 <meta content="SIP" name="keyword">
 <meta content="media control" name="keyword">
 <meta content="draft-altanai-aipref-realtime-protocol-bindings-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.31.0
-    Python 3.12.12
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.5
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.5.1
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.11.0
     pycountry 24.6.1
     PyYAML 6.0.3
-    requests 2.32.5
-    wcwidth 0.3.0
+    requests 2.33.1
+    wcwidth 0.8.2
 -->
 <link href="draft-altanai-aipref-realtime-protocol-bindings.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -63,7 +64,6 @@
   src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: italic;
@@ -112,7 +112,6 @@
   src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: normal;
@@ -168,7 +167,7 @@
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -176,7 +175,7 @@
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
@@ -293,16 +292,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
-  clear: both;
-}
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
 }
 
 h1, h2, h3 {
@@ -322,10 +324,10 @@ h4, h5, h6 {
 #abstract+p {
   font-size: 18px;
   line-height: 24px;
-}
-#abstract+p code, #abstract+p samp, #abstract+p tt {
-  font-size: 16px;
-  line-height: 0;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
 }
 
 p {
@@ -336,59 +338,59 @@ p {
 div {
   margin: 0;
 }
-.alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignRight.art-text pre {
-  padding: 0;
-  width: auto;
-}
 .alignRight {
   margin: 1em 0;
-}
-.alignRight > *:first-child {
-  border: none;
-  margin: 0;
-  float: right;
-  clear: both;
-}
-.alignRight > *:nth-child(2) {
-  clear: both;
-  display: block;
-  border: none;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
 }
 svg {
   display: block;
-}
-/* font-family isn't space-separated, but =~ will have to do */
-svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
-  font-family: var(--font-mono);
-}
-.alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignCenter.art-text pre {
-  padding: 0;
-  width: auto;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
 }
 .alignCenter {
   margin: 1em 0;
-}
-.alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
-  display: table;
-  margin: 0 auto;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
 }
 
 /* lists */
@@ -426,26 +428,25 @@ dl {
     --indent: 5ch;
     & > dt {
       min-width: calc(var(--indent) - 2ch);
+      float: none;
     }
-  }
-  &.olPercent > dt {
-    float: none;
   }
 
   dl > dd > & {
     margin-top: 0.5em;
     margin-bottom: 0;
   }
-}
-dl:not(.dlNewline) > dt {
-  float: left;
-  margin-right: 2ch;
-  min-width: 8ch;
-}
-dl > dd {
-  margin-bottom: .8em;
-  margin-left: var(--indent) !important; /* stupid element overrides */
-  min-height: 2ex;
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -461,20 +462,22 @@ dl > dd {
 }
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }
-a[href] {
-  color: var(--link-color);
-}
-a[href].selfRef, .iref + a[href].internal {
+.iref + a[href].internal {
   color: var(--text-color);
-}
-a[href]:hover {
-  text-decoration: underline;
-}
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
 }
 a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
@@ -510,9 +513,9 @@ img {
 figure {
   margin: 0.5em 0;
   padding: 0;
-}
-figure blockquote {
-  margin: 0.8em 0.4em 0.4em;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
 }
 figcaption, caption {
   font-style: italic;
@@ -522,17 +525,19 @@ figcaption, caption {
 }
 @media screen {
   /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
   pre, svg {
     display: inline-block;
@@ -582,25 +587,17 @@ table {
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
 }
 
 thead, tbody {
@@ -620,13 +617,6 @@ th {
 :is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
 }
-table caption {
-  margin: 0;
-  padding: 3px 0 3px 1em;
-}
-table p {
-  margin: 0;
-}
 
 /* pilcrow */
 a.pilcrow {
@@ -637,18 +627,16 @@ a.pilcrow {
     color: var(--pilcrow-weak);
     &:hover { text-decoration: none; }
   }
-}
-@media not print {
-  :hover > a.pilcrow, a.pilcrow:focus {
-    opacity: 1;
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
-    background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
+  @media print {
     display: none;
   }
 }
@@ -707,9 +695,9 @@ sub, sup {
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
-}
-.docInfo .prepared {
-  float: right;
+  & .prepared {
+    float: right;
+  }
 }
 
 /* table of contents */
@@ -799,23 +787,27 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
   }
 }
 
 /* Comments */
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
 }
 .cref {
   background-color: rgba(249, 232, 105, 0.3);
@@ -826,19 +818,21 @@ hr.addr {
 }
 
 @media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
-    & > ul { margin-bottom: 2em; }
-    & ul {
-      margin: 0 0 0 4px;
-      & :is(p, li) {
-        margin: 2px 0;
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
       }
     }
-  }
-  #toc a.toplink {
-    float: right;
+    & a.toplink {
+      float: right;
+    }
   }
 }
 @media not screen {
@@ -859,54 +853,54 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
-    padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 190px;
-    text-align: right;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    &::before { /* css hamburger */
-      float: right;
-      position: relative;
-      width: 1em;
-      height: 1px;
-      left: -164px;
-      margin: 8px 0 0 0;
-      background: white none repeat scroll 0 0;
-      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-      content: "";
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
     }
-  }
-  #toc nav {
-    display: none;
-    background-color: var(--background-color);
-    padding: 0.5em 1em 1em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    height: calc(100vh - 48px);
-    border-left: 1px solid #ddd;
-  }
-  #toc.active {
-    opacity: 1;
-    & nav { display: block; }
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:is(:link, :focus, :hover),
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin: 2px 0.5em 0;
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
   }
 }
 
@@ -925,26 +919,26 @@ hr.addr {
     margin: 0;
     padding: 0;
     z-index: 1;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 0.25em 1em 1em 0;
-  }
-  #toc nav {
-    display: block;
-    height: calc(90vh - 84px);
-    bottom: 0;
-    padding: 0.5em 0 2em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
   }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
-  }
-  #toc a.toplink {
-    margin: 8px 0.5em 0;
   }
 }
 
@@ -960,12 +954,13 @@ hr.addr {
   #n-copyright-notice {
     border-bottom: none;
   }
-  #toc, #n-introduction {
-    page-break-before: always;
-  }
   #toc {
+    page-break-before: always;
     border-top: none;
     padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
   }
   figure, pre, .vcard {
     page-break-inside: avoid;
@@ -1027,17 +1022,19 @@ hr.addr {
 }
 
 /* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
-}
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
-}
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
-}
-svg :is([fill="white"], [fill^="#fff"]) {
-  fill: var(--background-color);
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
 }
 </style>
 
@@ -1047,11 +1044,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">AI Pref RT Bindings</td>
-<td class="right">February 2026</td>
+<td class="right">August 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Bisht</td>
-<td class="center">Expires 7 August 2026</td>
+<td class="center">Expires 5 February 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1064,12 +1061,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-altanai-aipref-realtime-protocol-bindings-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-02-03" class="published">3 February 2026</time>
+<time datetime="2026-08-04" class="published">4 August 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-08-07">7 August 2026</time></dd>
+<dd class="expires"><time datetime="2027-02-05">5 February 2027</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1119,7 +1116,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 August 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1278,7 +1275,32 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-category-trigger-decision-t" class="internal xref">Category Trigger Decision Tree and Edge-Case Matrix</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.1">
+                <p id="section-toc.1-1.13.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-decision-tree" class="internal xref">Decision Tree</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.2">
+                <p id="section-toc.1-1.13.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-worked-examples" class="internal xref">Worked Examples</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.2.2.1">
+                    <p id="section-toc.1-1.13.2.2.2.1.1"><a href="#appendix-A.2.1" class="auto internal xref">A.2.1</a>.  <a href="#name-example-a-search-snippet-on" class="internal xref">Example A: Search Snippet Only</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.2.2.2">
+                    <p id="section-toc.1-1.13.2.2.2.2.1"><a href="#appendix-A.2.2" class="auto internal xref">A.2.2</a>.  <a href="#name-example-b-search-plus-groun" class="internal xref">Example B: Search Plus Grounded Answer</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.2.2.3">
+                    <p id="section-toc.1-1.13.2.2.2.3.1"><a href="#appendix-A.2.3" class="auto internal xref">A.2.3</a>.  <a href="#name-example-c-search-plus-conti" class="internal xref">Example C: Search Plus Continuous Learning</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.3">
+                <p id="section-toc.1-1.13.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-edge-case-matrix" class="internal xref">Edge-Case Matrix</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
+            <p id="section-toc.1-1.14.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1333,7 +1355,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-1.2-2.4.1">Operational recommendations for intermediaries, policy servers, and AI enforcement points.<a href="#section-1.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-1.2-3">This document does not standardize AI algorithms, privacy-preserving enforcement techniques, or the semantics of individual AIPREF vocabularies beyond referencing existing definitions in other working group documents such as <span>[<a href="#I-D.aipref-network-privacy-control" class="cite xref">I-D.aipref-network-privacy-control</a>]</span>.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
+<p id="section-1.2-3">This document does not standardize AI algorithms, privacy-preserving enforcement techniques, or the semantics of individual AIPREF vocabularies beyond referencing existing definitions in other working group documents such as <span>[<a href="#I-D.ietf-aipref-vocab" class="cite xref">I-D.ietf-aipref-vocab</a>]</span> and <span>[<a href="#I-D.ietf-aipref-attach" class="cite xref">I-D.ietf-aipref-attach</a>]</span>.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="requirements-language">
@@ -1401,16 +1423,24 @@ appear in all capitals, as shown here.<a href="#section-1.3-1" class="pilcrow">�
       <h2 id="name-binding-model">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-binding-model" class="section-name selfRef">Binding Model</a>
       </h2>
-<p id="section-4-1">The model in Figure 1 illustrates how preferences flow through RTC signaling.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2"><code>
- ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
- │ Preference   │ APT  │ SIP Binding  │ APT  │ Enforcement  │
- │ Originator   ├─────▶│ Transport    ├─────▶│ Point / AI   │
- └──────────────┘      └──────────────┘      └──────────────┘
-         ▲                      │                     │
-         │ Publish / Fetch      │ Dialog signaling    │ Media / Data
-         └──────────────────────┴─────────────────────┘
-</code><a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-1">The model in <a href="#fig-binding-flow" class="auto internal xref">Figure 1</a> illustrates how preferences flow through RTC signaling.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<span id="name-apt-flow-from-originator-th"></span><div id="fig-binding-flow">
+<figure id="figure-1">
+        <div class="alignLeft art-text artwork" id="section-4-2.1">
+<pre>
+  +----------------+   APT    +----------------+   APT    +----------------+
+  | Preference     |---------&gt;| SIP / SDP      |---------&gt;| Enforcement    |
+  | Originator     |          | Binding        |          | Point / AI     |
+  +----------------+          +----------------+          +----------------+
+           ^                         |                            |
+           | Publish / Fetch         | Dialog signaling           | Media / Data
+           +-------------------------+----------------------------+
+</pre>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-apt-flow-from-originator-th" class="selfRef">APT flow from originator through SIP/SDP binding to enforcement</a>
+        </figcaption></figure>
+</div>
 <ol start="1" type="1" class="normal type-1" id="section-4-3">
 <li id="section-4-3.1">
           <p id="section-4-3.1.1">An originator (user agent, operator policy engine, or regulator) issues an APT identifier or token.<a href="#section-4-3.1.1" class="pilcrow">¶</a></p>
@@ -1422,7 +1452,31 @@ appear in all capitals, as shown here.<a href="#section-1.3-1" class="pilcrow">�
           <p id="section-4-3.3.1">Enforcement points inside AI workloads retrieve, validate, and apply the referenced constraints before consuming protected data.<a href="#section-4-3.3.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
-<p id="section-4-4">Bindings <span class="bcp14">MUST</span> reference the same canonical APT identifier when expressing preferences across signaling and media layers to avoid ambiguity.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-4">Bindings <span class="bcp14">MUST</span> reference the same canonical APT identifier when expressing preferences across signaling and media layers to avoid ambiguity. <a href="#fig-layer-binding" class="auto internal xref">Figure 2</a> shows how dialog-scoped and media-scoped bindings share one APT identity.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<span id="name-shared-apt-identity-across-"></span><div id="fig-layer-binding">
+<figure id="figure-2">
+        <div class="alignLeft art-text artwork" id="section-4-5.1">
+<pre>
+                    +--------------------------------------+
+                    |           SIP Dialog                 |
+                    |  AI-Pref: apt-42;scope=dialog        |
+                    +------------------+-------------------+
+                                       |
+                     same APT identity | apt-42
+                                       v
+                    +--------------------------------------+
+                    |              SDP                     |
+                    |  m=audio ...                         |
+                    |  a=aipref:mid apt-42 features=...    |
+                    |  m=video ...                         |
+                    |  a=aipref:mid apt-42 retention=24h   |
+                    +--------------------------------------+
+</pre>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-shared-apt-identity-across-" class="selfRef">Shared APT identity across SIP header and SDP attributes</a>
+        </figcaption></figure>
+</div>
 </section>
 </div>
 <div id="sip-signaling-binding">
@@ -1451,21 +1505,47 @@ pref-param = ("scope" EQUAL token) /
           <h4 id="name-usage-rules">
 <a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-usage-rules" class="section-name selfRef">Usage Rules</a>
           </h4>
-<ol start="1" type="1" class="normal type-1" id="section-5.1.1-1">
-<li id="section-5.1.1-1.1">
-              <p id="section-5.1.1-1.1.1"><strong>Initial INVITE</strong>: The originating user agent server (UAC) <span class="bcp14">SHOULD</span> include an <code>AI-Pref</code> header referencing all preferences that govern AI handling of dialog metadata or media diagnostics. The header <span class="bcp14">MAY</span> appear multiple times when different scopes are advertised (e.g., <code>scope=dialog</code>, <code>scope=media</code>).<a href="#section-5.1.1-1.1.1" class="pilcrow">¶</a></p>
+<p id="section-5.1.1-1"><a href="#fig-sip-call-flow" class="auto internal xref">Figure 3</a> shows a representative call flow for advertising and confirming <code>AI-Pref</code> during dialog establishment and a mid-dialog update.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
+<span id="name-sip-call-flow-with-ai-pref-"></span><div id="fig-sip-call-flow">
+<figure id="figure-3">
+            <div class="alignLeft art-text artwork" id="section-5.1.1-2.1">
+<pre>
+  UAC                         Proxy / AS                      UAS / PEP
+   |                              |                              |
+   |------- INVITE AI-Pref ------&gt;|------ INVITE AI-Pref -------&gt;|
+   |       (scope=dialog)         |                              |
+   |                              |&lt;----- 183/200 AI-Pref -------|
+   |&lt;------ 183/200 AI-Pref ------|      (domain policies)       |
+   |                              |                              |
+   |------------- ACK / PRACK (echo accepted APT ids) ----------&gt;|
+   |                              |                              |
+   |======= early / confirmed media + AI enforcement ============|
+   |                              |                              |
+   |------ UPDATE AI-Pref -------&gt;|------ UPDATE AI-Pref -------&gt;|
+   |  (e.g., enable transcription |                              |
+   |   scope change)              |&lt;----- 200 OK AI-Pref --------|
+   |&lt;----- 200 OK AI-Pref --------|                              |
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-sip-call-flow-with-ai-pref-" class="selfRef">SIP call flow with AI-Pref on INVITE, response, and mid-dialog UPDATE</a>
+            </figcaption></figure>
+</div>
+<ol start="1" type="1" class="normal type-1" id="section-5.1.1-3">
+<li id="section-5.1.1-3.1">
+              <p id="section-5.1.1-3.1.1"><strong>Initial INVITE</strong>: The originating user agent client (UAC) <span class="bcp14">SHOULD</span> include an <code>AI-Pref</code> header referencing all preferences that govern AI handling of dialog metadata or media diagnostics. The header <span class="bcp14">MAY</span> appear multiple times when different scopes are advertised (e.g., <code>scope=dialog</code>, <code>scope=media</code>).<a href="#section-5.1.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.1-1.2">
-              <p id="section-5.1.1-1.2.1"><strong>Provisional Responses</strong>: Proxies and user agent servers (UAS) <span class="bcp14">MAY</span> add <code>AI-Pref</code> headers to responses in order to enumerate additional policies that downstream AI components <span class="bcp14">MUST</span> accept before the session is confirmed.<a href="#section-5.1.1-1.2.1" class="pilcrow">¶</a></p>
+            <li id="section-5.1.1-3.2">
+              <p id="section-5.1.1-3.2.1"><strong>Provisional Responses</strong>: Proxies and user agent servers (UAS) <span class="bcp14">MAY</span> add <code>AI-Pref</code> headers to responses in order to enumerate additional policies that downstream AI components <span class="bcp14">MUST</span> accept before the session is confirmed.<a href="#section-5.1.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.1-1.3">
-              <p id="section-5.1.1-1.3.1"><strong>ACK and PRACK</strong>: These messages <span class="bcp14">MUST</span> echo the latest accepted <code>AI-Pref</code> identifiers when the UAS requires confirmation. Absence of <code>AI-Pref</code> in ACK implies acceptance of the most recent set.<a href="#section-5.1.1-1.3.1" class="pilcrow">¶</a></p>
+            <li id="section-5.1.1-3.3">
+              <p id="section-5.1.1-3.3.1"><strong>ACK and PRACK</strong>: These messages <span class="bcp14">MUST</span> echo the latest accepted <code>AI-Pref</code> identifiers when the UAS requires confirmation. Absence of <code>AI-Pref</code> in ACK implies acceptance of the most recent set.<a href="#section-5.1.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.1-1.4">
-              <p id="section-5.1.1-1.4.1"><strong>Mid-Dialog Updates</strong>: Re-INVITE and UPDATE requests <span class="bcp14">MUST</span> include <code>AI-Pref</code> whenever the preference scope of any media stream is modified. This allows AI systems that adapt encoders, perform transcription, or modify layouts to obey updated constraints.<a href="#section-5.1.1-1.4.1" class="pilcrow">¶</a></p>
+            <li id="section-5.1.1-3.4">
+              <p id="section-5.1.1-3.4.1"><strong>Mid-Dialog Updates</strong>: Re-INVITE and UPDATE requests <span class="bcp14">MUST</span> include <code>AI-Pref</code> whenever the preference scope of any media stream is modified. This allows AI systems that adapt encoders, perform transcription, or modify layouts to obey updated constraints.<a href="#section-5.1.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.1-1.5">
-              <p id="section-5.1.1-1.5.1"><strong>SUBSCRIBE/NOTIFY</strong>: Event packages (e.g., dialog package, KPML, presence) <span class="bcp14">MAY</span> carry <code>AI-Pref</code> headers so that AI assistants consuming event payloads adhere to the advertised constraints.<a href="#section-5.1.1-1.5.1" class="pilcrow">¶</a></p>
+            <li id="section-5.1.1-3.5">
+              <p id="section-5.1.1-3.5.1"><strong>SUBSCRIBE/NOTIFY</strong>: Event packages (e.g., dialog package, KPML, presence) <span class="bcp14">MAY</span> carry <code>AI-Pref</code> headers so that AI assistants consuming event payloads adhere to the advertised constraints.<a href="#section-5.1.1-3.5.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
@@ -1585,19 +1665,47 @@ a=aipref:&lt;scope&gt; &lt;identifier&gt; [&lt;parameter&gt;=&lt;value&gt; ...]
         <h3 id="name-conflict-resolution">
 <a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-conflict-resolution" class="section-name selfRef">Conflict Resolution</a>
         </h3>
-<p id="section-7.3-1">When multiple APTs apply to the same resource, the following precedence rules apply unless a policy repository states otherwise:<a href="#section-7.3-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-7.3-2">
-<li id="section-7.3-2.1">
-            <p id="section-7.3-2.1.1">User-specific preferences override domain defaults.<a href="#section-7.3-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-7.3-1">{#conflict-resolution}<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+<p id="section-7.3-2">When multiple APTs apply to the same resource, the following precedence rules apply unless a policy repository states otherwise:<a href="#section-7.3-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-7.3-3">
+<li id="section-7.3-3.1">
+            <p id="section-7.3-3.1.1">User-specific preferences override domain defaults.<a href="#section-7.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-7.3-2.2">
-            <p id="section-7.3-2.2.1">Domain-level regulatory requirements override individual relaxations.<a href="#section-7.3-2.2.1" class="pilcrow">¶</a></p>
+          <li id="section-7.3-3.2">
+            <p id="section-7.3-3.2.1">Domain-level regulatory requirements override individual relaxations.<a href="#section-7.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-7.3-2.3">
-            <p id="section-7.3-2.3.1">The most restrictive constraint wins when two preferences conflict on the same vocabulary key.<a href="#section-7.3-2.3.1" class="pilcrow">¶</a></p>
+          <li id="section-7.3-3.3">
+            <p id="section-7.3-3.3.1">The most restrictive constraint wins when two preferences conflict on the same vocabulary key.<a href="#section-7.3-3.3.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-7.3-3">Endpoints <span class="bcp14">MAY</span> advertise their conflict-resolution policy through the <code>policy</code> parameter inside <code>AI-Pref</code> headers (e.g., <code>policy=strictest-wins</code>).<a href="#section-7.3-3" class="pilcrow">¶</a></p>
+<p id="section-7.3-4"><a href="#fig-conflict-precedence" class="auto internal xref">Figure 4</a> summarizes the default evaluation order.<a href="#section-7.3-4" class="pilcrow">¶</a></p>
+<span id="name-default-apt-conflict-resolu"></span><div id="fig-conflict-precedence">
+<figure id="figure-4">
+          <div class="alignLeft art-text artwork" id="section-7.3-5.1">
+<pre>
+  Incoming APTs for same target
+              |
+              v
+  +---------------------------+
+  | Regulatory / domain MUST  |  -- overrides weaker relaxations
+  +-------------+-------------+
+                |
+                v
+  +---------------------------+
+  | User-specific preferences |  -- override ordinary domain defaults
+  +-------------+-------------+
+                |
+                v
+  +---------------------------+
+  | Strictest-wins on same key|  -- final effective constraint
+  +---------------------------+
+</pre>
+</div>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-default-apt-conflict-resolu" class="selfRef">Default APT conflict-resolution precedence</a>
+          </figcaption></figure>
+</div>
+<p id="section-7.3-6">Endpoints <span class="bcp14">MAY</span> advertise their conflict-resolution policy through the <code>policy</code> parameter inside <code>AI-Pref</code> headers (e.g., <code>policy=strictest-wins</code>).<a href="#section-7.3-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1690,7 +1798,19 @@ a=aipref:&lt;scope&gt; &lt;identifier&gt; [&lt;parameter&gt;=&lt;value&gt; ...]
               <p id="section-9.1.2-3.3.1">Provide clear documentation on how preferences interact with accessibility features.<a href="#section-9.1.2-3.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-9.1.2-4">Preference categories defined in AIPREF vocabulary drafts (e.g., <code>search</code>, <code>ai-input</code>, <code>ai-train</code>) <span class="bcp14">SHOULD</span> be interpreted narrowly and consistently.<a href="#section-9.1.2-4" class="pilcrow">¶</a></p>
+<p id="section-9.1.2-4">Preference categories defined in AIPREF vocabulary drafts (e.g., <code>search</code>, <code>ai-input</code>, <code>ai-train</code> / <code>train-ai</code>) <span class="bcp14">SHOULD</span> be interpreted narrowly and consistently. Category triggering <span class="bcp14">MUST</span> be based on observed processing behavior, not on product labels or marketing terms. In particular:<a href="#section-9.1.2-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.1.2-5.1">
+              <p id="section-9.1.2-5.1.1">Presentation of indexed session artifacts with links or short excerpts that direct participants to the source (for example, meeting-search hit lists) is evaluated under <code>search</code> when that vocabulary applies.<a href="#section-9.1.2-5.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.2-5.2">
+              <p id="section-9.1.2-5.2.1">Using retrieved session content as grounding or context for generated answers triggers the applicable inference/use category in addition to any <code>search</code> trigger.<a href="#section-9.1.2-5.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.1.2-5.3">
+              <p id="section-9.1.2-5.3.1">Updating model weights or other long-term model state from session content, interaction logs, or derived embeddings triggers <code>train-ai</code> (or a more specific training category when present).<a href="#section-9.1.2-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-9.1.2-6">When multiple categories are triggered, implementations <span class="bcp14">MUST</span> evaluate declared preferences for each triggered category and resolve conflicts using the precedence rules in <a href="#conflict-resolution" class="auto internal xref">Section 7.3</a>. Appendix A provides a non-normative decision tree and edge-case matrix for classification consistency.<a href="#section-9.1.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="transparency-to-participants">
@@ -1753,7 +1873,7 @@ a=aipref:&lt;scope&gt; &lt;identifier&gt; [&lt;parameter&gt;=&lt;value&gt; ...]
               <p id="section-9.1.5-2.4.1">research uses permitted by local law.<a href="#section-9.1.5-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-9.1.5-3">Where preferences do apply to stored recordings, systems <span class="bcp14">SHOULD</span> preserve the preferences alongside the stored media, consistent with the behavior defined in draft‑ietf‑aipref‑attach for HTTP representations.<a href="#section-9.1.5-3" class="pilcrow">¶</a></p>
+<p id="section-9.1.5-3">Where preferences do apply to stored recordings, systems <span class="bcp14">SHOULD</span> preserve the preferences alongside the stored media, consistent with the behavior defined in <span>[<a href="#I-D.ietf-aipref-attach" class="cite xref">I-D.ietf-aipref-attach</a>]</span> for HTTP representations.<a href="#section-9.1.5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="avoiding-platformlevel-overreach">
@@ -1856,7 +1976,7 @@ a=aipref:&lt;scope&gt; &lt;identifier&gt; [&lt;parameter&gt;=&lt;value&gt; ...]
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="section-11-1">This work is informed by discussions within the AIPREF working group, including contributions on network privacy controls and media quality automation.<a href="#section-11-1" class="pilcrow">¶</a></p>
+<p id="section-11-1">This work is informed by discussions within the AIPREF working group, including contributions on network privacy controls and media quality automation. Related vocabulary-boundary discussions (including search versus training overlap) also informed Appendix A.<a href="#section-11-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
@@ -1876,11 +1996,11 @@ a=aipref:&lt;scope&gt; &lt;identifier&gt; [&lt;parameter&gt;=&lt;value&gt; ...]
 <dd class="break"></dd>
 <dt id="RFC3261">[RFC3261]</dt>
         <dd>
-<span class="refAuthor">Rosenberg, J.</span>, <span class="refAuthor">Schulzrinne, H.</span>, <span class="refAuthor">Camarillo, G.</span>, <span class="refAuthor">Johnston, A.</span>, <span class="refAuthor">Peterson, J.</span>, <span class="refAuthor">Sparks, R.</span>, <span class="refAuthor">Handley, M.</span>, and <span class="refAuthor">E. Schooler</span>, <span class="refTitle">"SIP: Session Initiation Protocol"</span>, <span class="seriesInfo">RFC 3261</span>, <span class="seriesInfo">DOI 10.17487/RFC3261</span>, <time datetime="2002-06" class="refDate">June 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3261">https://www.rfc-editor.org/rfc/rfc3261</a>&gt;</span>. </dd>
+<span class="refAuthor">Rosenberg, J.</span>, <span class="refAuthor">Schulzrinne, H.</span>, <span class="refAuthor">Camarillo, G.</span>, <span class="refAuthor">Johnston, A.</span>, <span class="refAuthor">Peterson, J.</span>, <span class="refAuthor">Sparks, R.</span>, <span class="refAuthor">Handley, M.</span>, and <span class="refAuthor">E. Schooler</span>, <span class="refTitle">"SIP: Session Initiation Protocol"</span>, <span class="seriesInfo">RFC 3261</span>, <span class="seriesInfo">DOI 10.17487/RFC3261</span>, <time datetime="2002-07" class="refDate">July 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3261">https://www.rfc-editor.org/rfc/rfc3261</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3264">[RFC3264]</dt>
         <dd>
-<span class="refAuthor">Rosenberg, J.</span> and <span class="refAuthor">H. Schulzrinne</span>, <span class="refTitle">"An Offer/Answer Model with Session Description Protocol (SDP)"</span>, <span class="seriesInfo">RFC 3264</span>, <span class="seriesInfo">DOI 10.17487/RFC3264</span>, <time datetime="2002-06" class="refDate">June 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3264">https://www.rfc-editor.org/rfc/rfc3264</a>&gt;</span>. </dd>
+<span class="refAuthor">Rosenberg, J.</span> and <span class="refAuthor">H. Schulzrinne</span>, <span class="refTitle">"An Offer/Answer Model with Session Description Protocol (SDP)"</span>, <span class="seriesInfo">RFC 3264</span>, <span class="seriesInfo">DOI 10.17487/RFC3264</span>, <time datetime="2002-07" class="refDate">July 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3264">https://www.rfc-editor.org/rfc/rfc3264</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3311">[RFC3311]</dt>
         <dd>
@@ -1907,13 +2027,17 @@ a=aipref:&lt;scope&gt; &lt;identifier&gt; [&lt;parameter&gt;=&lt;value&gt; ...]
 <a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.aipref-network-privacy-control">[I-D.aipref-network-privacy-control]</dt>
+<dt id="I-D.ietf-aipref-attach">[I-D.ietf-aipref-attach]</dt>
         <dd>
-<span class="refTitle">"*** BROKEN REFERENCE ***"</span>. </dd>
+<span class="refAuthor">Illyes, G.</span> and <span class="refAuthor">M. Thomson</span>, <span class="refTitle">"Associating AI Usage Preferences with Content in HTTP"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-aipref-attach-04</span>, <time datetime="2025-10-28" class="refDate">28 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-aipref-attach-04">https://datatracker.ietf.org/doc/html/draft-ietf-aipref-attach-04</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-aipref-vocab">[I-D.ietf-aipref-vocab]</dt>
+        <dd>
+<span class="refAuthor">Keller, P.</span> and <span class="refAuthor">M. Thomson</span>, <span class="refTitle">"A Vocabulary For Expressing AI Usage Preferences"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-aipref-vocab-06</span>, <time datetime="2026-04-27" class="refDate">27 April 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-aipref-vocab-06">https://datatracker.ietf.org/doc/html/draft-ietf-aipref-vocab-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3265">[RFC3265]</dt>
         <dd>
-<span class="refAuthor">Roach, A. B.</span>, <span class="refTitle">"Session Initiation Protocol (SIP)-Specific Event Notification"</span>, <span class="seriesInfo">RFC 3265</span>, <span class="seriesInfo">DOI 10.17487/RFC3265</span>, <time datetime="2002-06" class="refDate">June 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3265">https://www.rfc-editor.org/rfc/rfc3265</a>&gt;</span>. </dd>
+<span class="refAuthor">Roach, A. B.</span>, <span class="refTitle">"Session Initiation Protocol (SIP)-Specific Event Notification"</span>, <span class="seriesInfo">RFC 3265</span>, <span class="seriesInfo">DOI 10.17487/RFC3265</span>, <time datetime="2002-07" class="refDate">July 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3265">https://www.rfc-editor.org/rfc/rfc3265</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4566">[RFC4566]</dt>
         <dd>
@@ -1932,8 +2056,272 @@ a=aipref:&lt;scope&gt; &lt;identifier&gt; [&lt;parameter&gt;=&lt;value&gt; ...]
 </div>
 </section>
 </div>
-<div id="authors-addresses">
+<div id="category-trigger-decision-tree-and-edge-case-matrix">
 <section id="appendix-A">
+      <h2 id="name-category-trigger-decision-t">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-category-trigger-decision-t" class="section-name selfRef">Category Trigger Decision Tree and Edge-Case Matrix</a>
+      </h2>
+<p id="appendix-A-1">This appendix is non-normative. It helps implementers determine which AIPREF categories are triggered by observed behavior in real-time systems, then evaluate preferences for all triggered categories. It complements WG vocabulary discussion on <code>search</code> / <code>train-ai</code> boundary cases.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<div id="decision-tree">
+<section id="appendix-A.1">
+        <h3 id="name-decision-tree">
+<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-decision-tree" class="section-name selfRef">Decision Tree</a>
+        </h3>
+<p id="appendix-A.1-1"><a href="#fig-category-trigger" class="auto internal xref">Figure 5</a> summarizes the behavior-based trigger flow; the numbered steps below match the diagram.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
+<span id="name-non-normative-category-trig"></span><div id="fig-category-trigger">
+<figure id="figure-5">
+          <div class="alignLeft art-text artwork" id="appendix-A.1-2.1">
+<pre>
+  Observe operation on content
+              |
+              +-- links / snippets to source? ---- yes --&gt; trigger search
+              |
+              +-- used as grounding for generation? -- yes --&gt; trigger inference/use
+              |
+              +-- updates model weights / long-term
+              |   model state? -------------------- yes --&gt; trigger train-ai
+              |
+              v
+  Evaluate preference for EACH triggered category
+              |
+              +-- conflicting outcomes? -- yes --&gt; Conflict Resolution
+              |
+              v
+         Effective result (allowed / disallowed / unknown)
+</pre>
+</div>
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-non-normative-category-trig" class="selfRef">Non-normative category trigger decision flow</a>
+          </figcaption></figure>
+</div>
+<ol start="1" type="1" class="normal type-1" id="appendix-A.1-3">
+<li id="appendix-A.1-3.1">
+            <p id="appendix-A.1-3.1.1">Identify the operation performed on content:<a href="#appendix-A.1-3.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A.1-3.1.2.1">
+                <p id="appendix-A.1-3.1.2.1.1">Acquisition only (capture/store without a use decision)<a href="#appendix-A.1-3.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="appendix-A.1-3.1.2.2">
+                <p id="appendix-A.1-3.1.2.2.1">Retrieval, indexing, or ranking for search presentation<a href="#appendix-A.1-3.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="appendix-A.1-3.1.2.3">
+                <p id="appendix-A.1-3.1.2.3.1">Grounding or context injection for generated output<a href="#appendix-A.1-3.1.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="appendix-A.1-3.1.2.4">
+                <p id="appendix-A.1-3.1.2.4.1">Model update or parameter adaptation<a href="#appendix-A.1-3.1.2.4.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li id="appendix-A.1-3.2">
+            <p id="appendix-A.1-3.2.1">If the operation directs users to source locations via links and associated search content, trigger <code>search</code>.<a href="#appendix-A.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="appendix-A.1-3.3">
+            <p id="appendix-A.1-3.3.1">If content is used as grounding or context to generate answers, trigger the applicable inference/use category.<a href="#appendix-A.1-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="appendix-A.1-3.4">
+            <p id="appendix-A.1-3.4.1">If the operation updates model weights or long-term model state, trigger <code>train-ai</code> (or a more specific training category if present).<a href="#appendix-A.1-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="appendix-A.1-3.5">
+            <p id="appendix-A.1-3.5.1">Evaluate declared preference values (<code>allowed</code>, <code>disallowed</code>, <code>unknown</code>) for every triggered category.<a href="#appendix-A.1-3.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="appendix-A.1-3.6">
+            <p id="appendix-A.1-3.6.1">If outcomes differ across triggered categories, apply the combination and specificity rules in <a href="#conflict-resolution" class="auto internal xref">Section 7.3</a> (strictest-wins unless a stated policy says otherwise).<a href="#appendix-A.1-3.6.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+<p id="appendix-A.1-4">Category trigger is behavior-based, not keyword-based. Labels in signaling artifacts are inputs to evaluation; triggering reflects what the system actually does with content.<a href="#appendix-A.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="worked-examples">
+<section id="appendix-A.2">
+        <h3 id="name-worked-examples">
+<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-worked-examples" class="section-name selfRef">Worked Examples</a>
+        </h3>
+<div id="example-a-search-snippet-only">
+<section id="appendix-A.2.1">
+          <h4 id="name-example-a-search-snippet-on">
+<a href="#appendix-A.2.1" class="section-number selfRef">A.2.1. </a><a href="#name-example-a-search-snippet-on" class="section-name selfRef">Example A: Search Snippet Only</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="appendix-A.2.1-1.1">
+              <p id="appendix-A.2.1-1.1.1">Behavior: index and retrieve recorded-session hits; show links or short snippets; no grounding; no model update<a href="#appendix-A.2.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A.2.1-1.2">
+              <p id="appendix-A.2.1-1.2.1">Triggered categories: <code>search</code><a href="#appendix-A.2.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A.2.1-1.3">
+              <p id="appendix-A.2.1-1.3.1">Notes: if snippets remain within search presentation behavior, no <code>train-ai</code> trigger occurs<a href="#appendix-A.2.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="example-b-search-plus-grounded-answer">
+<section id="appendix-A.2.2">
+          <h4 id="name-example-b-search-plus-groun">
+<a href="#appendix-A.2.2" class="section-number selfRef">A.2.2. </a><a href="#name-example-b-search-plus-groun" class="section-name selfRef">Example B: Search Plus Grounded Answer</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="appendix-A.2.2-1.1">
+              <p id="appendix-A.2.2-1.1.1">Behavior: retrieve session sources, then generate an assistant answer with grounded context and citations<a href="#appendix-A.2.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A.2.2-1.2">
+              <p id="appendix-A.2.2-1.2.1">Triggered categories: <code>search</code> plus the applicable inference/use category<a href="#appendix-A.2.2-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A.2.2-1.3">
+              <p id="appendix-A.2.2-1.3.1">Notes: primary overlap case; both preferences must be evaluated<a href="#appendix-A.2.2-1.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="example-c-search-plus-continuous-learning">
+<section id="appendix-A.2.3">
+          <h4 id="name-example-c-search-plus-conti">
+<a href="#appendix-A.2.3" class="section-number selfRef">A.2.3. </a><a href="#name-example-c-search-plus-conti" class="section-name selfRef">Example C: Search Plus Continuous Learning</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="appendix-A.2.3-1.1">
+              <p id="appendix-A.2.3-1.1.1">Behavior: ranking or recommendation model updated from interaction logs derived from session content usage<a href="#appendix-A.2.3-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A.2.3-1.2">
+              <p id="appendix-A.2.3-1.2.1">Triggered categories: <code>search</code> plus <code>train-ai</code><a href="#appendix-A.2.3-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A.2.3-1.3">
+              <p id="appendix-A.2.3-1.3.1">Notes: stress case for precedence when <code>search</code> is allowed but <code>train-ai</code> is disallowed<a href="#appendix-A.2.3-1.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="edge-case-matrix">
+<section id="appendix-A.3">
+        <h3 id="name-edge-case-matrix">
+<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-edge-case-matrix" class="section-name selfRef">Edge-Case Matrix</a>
+        </h3>
+<p id="appendix-A.3-1">The following representative scenarios use expected effective results of Allowed, Disallowed, or Unknown. Ambiguity notes flag cases where current vocabulary text may not yet yield a stable interpretation across reviewers.<a href="#appendix-A.3-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-1">
+          <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">ID</th>
+              <th class="text-left" rowspan="1" colspan="1">Input source</th>
+              <th class="text-left" rowspan="1" colspan="1">Processing stage</th>
+              <th class="text-left" rowspan="1" colspan="1">Output behavior</th>
+              <th class="text-left" rowspan="1" colspan="1">Categories triggered</th>
+              <th class="text-left" rowspan="1" colspan="1">Declared preferences (example)</th>
+              <th class="text-left" rowspan="1" colspan="1">Expected effective result</th>
+              <th class="text-left" rowspan="1" colspan="1">Rationale / ambiguity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">EC-1</td>
+              <td class="text-left" rowspan="1" colspan="1">Stored session / hybrid</td>
+              <td class="text-left" rowspan="1" colspan="1">indexing + retrieval</td>
+              <td class="text-left" rowspan="1" colspan="1">link or snippet only</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>search</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>search=y</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">Allowed</td>
+              <td class="text-left" rowspan="1" colspan="1">Classic search presentation; no training or generation</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">EC-2</td>
+              <td class="text-left" rowspan="1" colspan="1">Stored session / hybrid</td>
+              <td class="text-left" rowspan="1" colspan="1">retrieval + grounding + generation</td>
+              <td class="text-left" rowspan="1" colspan="1">generated answer with citations</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>search</code> + inference/use</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>search=y</code>, inference=<code>n</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">Disallowed</td>
+              <td class="text-left" rowspan="1" colspan="1">Grounded generation is blocked even if search is allowed</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">EC-3</td>
+              <td class="text-left" rowspan="1" colspan="1">Interaction logs from crawler- or user-sourced sessions</td>
+              <td class="text-left" rowspan="1" colspan="1">ranking model update</td>
+              <td class="text-left" rowspan="1" colspan="1">ranking scores only</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>search</code> + <code>train-ai</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>search=y</code>, <code>train-ai=n</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">Disallowed</td>
+              <td class="text-left" rowspan="1" colspan="1">Continuous learning triggers training category; strictest-wins</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">EC-4</td>
+              <td class="text-left" rowspan="1" colspan="1">User-supplied prompt plus crawler-sourced context</td>
+              <td class="text-left" rowspan="1" colspan="1">grounding + generation</td>
+              <td class="text-left" rowspan="1" colspan="1">generated answer</td>
+              <td class="text-left" rowspan="1" colspan="1">inference/use (+ <code>search</code> if retrieval UI present)</td>
+              <td class="text-left" rowspan="1" colspan="1">inference=<code>n</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">Disallowed</td>
+              <td class="text-left" rowspan="1" colspan="1">Hybrid input does not waive inference preference on retrieved context</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">EC-5</td>
+              <td class="text-left" rowspan="1" colspan="1">Crawler-sourced corpus</td>
+              <td class="text-left" rowspan="1" colspan="1">test-time adaptation</td>
+              <td class="text-left" rowspan="1" colspan="1">adapted model outputs</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>train-ai</code> (or adaptation-specific category)</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>train-ai=n</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">Disallowed / Unknown</td>
+              <td class="text-left" rowspan="1" colspan="1">Under-specified if adaptation is not clearly "model update" in vocabulary text</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">EC-6</td>
+              <td class="text-left" rowspan="1" colspan="1">Session content</td>
+              <td class="text-left" rowspan="1" colspan="1">embedding cache for RAG</td>
+              <td class="text-left" rowspan="1" colspan="1">cached vectors used later for retrieval</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>search</code> and/or <code>train-ai</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>search=y</code>, <code>train-ai=n</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">Unknown</td>
+              <td class="text-left" rowspan="1" colspan="1">Ambiguity: embedding cache may be treated as search-internal processing or as lasting derived state</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">EC-7</td>
+              <td class="text-left" rowspan="1" colspan="1">Live or recorded media</td>
+              <td class="text-left" rowspan="1" colspan="1">accessibility transform of excerpts</td>
+              <td class="text-left" rowspan="1" colspan="1">captions / transformed snippets</td>
+              <td class="text-left" rowspan="1" colspan="1">typically neither <code>search</code> nor <code>train-ai</code> alone</td>
+              <td class="text-left" rowspan="1" colspan="1">accessibility allowed by policy</td>
+              <td class="text-left" rowspan="1" colspan="1">Allowed</td>
+              <td class="text-left" rowspan="1" colspan="1">Beneficial accessibility processing <span class="bcp14">SHOULD</span> remain available; see privacy considerations</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">EC-8</td>
+              <td class="text-left" rowspan="1" colspan="1">Dialog telemetry</td>
+              <td class="text-left" rowspan="1" colspan="1">media-metrics feature under APT scope</td>
+              <td class="text-left" rowspan="1" colspan="1">QoE analytics only</td>
+              <td class="text-left" rowspan="1" colspan="1">scoped by APT <code>features</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">APT forbids export beyond aggregated metrics</td>
+              <td class="text-left" rowspan="1" colspan="1">Allowed only within APT</td>
+              <td class="text-left" rowspan="1" colspan="1">Binding-scoped example: enforce APT granularity rather than vocabulary overlap</td>
+            </tr>
+          </tbody>
+        </table>
+<p id="appendix-A.3-3">Independent reviewers <span class="bcp14">SHOULD</span> be able to classify EC-1 through EC-4 and EC-7 consistently using the decision tree above. EC-5 and EC-6 remain explicitly tied to open vocabulary-boundary discussion and <span class="bcp14">SHOULD</span> be marked Unknown until the base AIPREF definitions stabilize.<a href="#appendix-A.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-B">
       <h2 id="name-authors-address">
 <a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
       </h2>
