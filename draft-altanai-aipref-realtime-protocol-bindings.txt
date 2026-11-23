@@ -3,9 +3,9 @@
 
 
 AI Preferences                                                  A. Bisht
-Internet-Draft                                              Cisco Meraki
-Intended status: Standards Track                           4 August 2026
-Expires: 5 February 2027
+Internet-Draft                                                     Cisco
+Intended status: Standards Track                        23 November 2026
+Expires: 27 May 2027
 
 
              AI Preferences for Real-Time Protocol Bindings
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 February 2027.
+   This Internet-Draft will expire on 27 May 2027.
 
 Copyright Notice
 
@@ -773,16 +773,16 @@ Informative References
    [I-D.ietf-aipref-attach]
               Illyes, G. and M. Thomson, "Associating AI Usage
               Preferences with Content in HTTP", Work in Progress,
-              Internet-Draft, draft-ietf-aipref-attach-04, 28 October
-              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              aipref-attach-04>.
+              Internet-Draft, draft-ietf-aipref-attach-05, 18 August
+              2026, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              aipref-attach-05>.
 
    [I-D.ietf-aipref-vocab]
               Keller, P. and M. Thomson, "A Vocabulary For Expressing AI
               Usage Preferences", Work in Progress, Internet-Draft,
-              draft-ietf-aipref-vocab-06, 27 April 2026,
+              draft-ietf-aipref-vocab-08, 13 September 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-aipref-
-              vocab-06>.
+              vocab-08>.
 
    [RFC3265]  Roach, A. B., "Session Initiation Protocol (SIP)-Specific
               Event Notification", RFC 3265, DOI 10.17487/RFC3265, July
@@ -978,5 +978,5 @@ A.3.  Edge-Case Matrix
 Author's Address
 
    Altanai Bisht
-   Cisco Meraki
+   Cisco
    Email: albisht@cisco.com
