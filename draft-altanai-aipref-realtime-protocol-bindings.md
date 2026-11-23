@@ -27,7 +27,7 @@ venue:
 author:
  -
     fullname: "Altanai Bisht"
-    organization: "Cisco Meraki"
+    organization: "Cisco"
     email: "albisht@cisco.com"
 
 normative:
