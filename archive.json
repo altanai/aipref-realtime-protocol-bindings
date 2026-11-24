@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-22T00:30:17.341558+00:00",
+  "timestamp": "2026-11-24T00:25:56.499412+00:00",
   "repo": "altanai/aipref-realtime-protocol-bindings",
   "labels": [
     {
@@ -49,6 +49,84 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
-  "pulls": []
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDORH4Ioc8AAAABh4_WFQ",
+      "title": "Separate SIP ACK and PRACK from AI preference acceptance",
+      "url": "https://github.com/altanai/aipref-realtime-protocol-bindings/issues/1",
+      "state": "OPEN",
+      "author": "altanai",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "## Problem\n\nThe SIP usage rules require ACK or PRACK to echo accepted `AI-Pref` identifiers and treat a missing `AI-Pref` in ACK as acceptance. A legacy endpoint can send a normal ACK after a final INVITE response. PRACK acknowledges a reliable provisional response when that procedure is in use. Neither message, by itself, establishes support for `AI-Pref` or a decision to honor it. The draft also needs to reconcile mandatory rejection for unsupported preferences with its stated legacy compatibility.\n\nSee [SIP signaling in the editor\u2019s copy](https://github.com/altanai/aipref-realtime-protocol-bindings/blob/main/draft-altanai-aipref-realtime-protocol-bindings.md#L156-L183), [RFC 3261 \u00a713](https://datatracker.ietf.org/doc/html/rfc3261#section-13), and [RFC 3262 \u00a7\u00a73\u20135](https://datatracker.ietf.org/doc/html/rfc3262#section-3).\n\n## Acceptance criteria\n\n- [ ] Remove the rule that absence of `AI-Pref` in ACK implies acceptance. Define the result when `AI-Pref` is absent or when peer support is unknown. An ordinary SIP response or acknowledgment must not be interpreted as consent or a commitment to honor a preference.\n- [ ] Reconcile the usage and error handling rules with advisory operation. For the baseline case, show that a legacy peer can complete the call while preference confirmation remains unknown. If explicit confirmation is retained, define who sends it, which declaration and scope it confirms, and whether it confirms receipt or a commitment to honor the preference.\n- [ ] Show a complete baseline `INVITE` / `200 OK` / `ACK` exchange and label the resulting preference state. If early media is in scope, show a separate reliable `183` / `PRACK` exchange using the procedures from RFC 3262.\n- [ ] Present the examples in fenced blocks with named anchors or captions as appropriate and check their cross-references in the generated TXT and HTML. Follow the [AIPREF attachment draft\u2019s Markdown source](https://github.com/ietf-wg-aipref/drafts/blob/main/draft-ietf-aipref-attach.md) for the presentation of wire examples, section references, and captioned figures.\n",
+      "createdAt": "2026-11-23T21:36:10Z",
+      "updatedAt": "2026-11-23T21:36:10Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 2,
+      "id": "I_kwDORH4Ioc8AAAABh6vq9g",
+      "title": "Fix the Conflict Resolution heading anchor",
+      "url": "https://github.com/altanai/aipref-realtime-protocol-bindings/issues/2",
+      "state": "OPEN",
+      "author": "altanai",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "## Problem\n\nThe standalone `{#conflict-resolution}` line appears as literal text under [Conflict Resolution in the published draft](https://datatracker.ietf.org/doc/html/draft-altanai-aipref-realtime-protocol-bindings-01#section-7.3).\n\n## Proposed change\n\nPut the anchor on the heading line and remove the standalone attribute line.\n\n```markdown\n## Conflict Resolution {#conflict-resolution}\n```\n\nThis follows the heading anchor style used in the [AIPREF attachment draft source](https://github.com/ietf-wg-aipref/drafts/blob/main/draft-ietf-aipref-attach.md).\n\n## Acceptance criteria\n\n- [ ] The generated HTML uses `conflict-resolution` as the section anchor, and references to `{{conflict-resolution}}` resolve to that section.\n- [ ] The literal `{#conflict-resolution}` no longer appears in the generated HTML or TXT.\n",
+      "createdAt": "2026-11-23T23:40:11Z",
+      "updatedAt": "2026-11-23T23:40:11Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDORH4Ioc8AAAABh6vuag",
+      "title": "Fix the AIPREF attachment citation in the archiving section",
+      "url": "https://github.com/altanai/aipref-realtime-protocol-bindings/issues/3",
+      "state": "OPEN",
+      "author": "altanai",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "## Problem\n\nThe sentence about preserving preferences alongside stored media in [Compatibility with Archiving and Research](https://datatracker.ietf.org/doc/html/draft-altanai-aipref-realtime-protocol-bindings-01#section-9.1.5) uses `[I-D.ietf-aipref-attach]`. The square-bracket form is plain text in this context and does not generate a bibliography cross-reference.\n\n## Proposed change\n\nChange that occurrence to `{{I-D.ietf-aipref-attach}}`. Reuse the existing informative reference entry.\n\n## Acceptance criteria\n\n- [ ] The generated HTML citation links to the existing AIPREF attachment draft bibliography entry.\n- [ ] The generated TXT uses the formatter\u2019s bibliography citation, and no duplicate reference entry is added.\n",
+      "createdAt": "2026-11-23T23:40:15Z",
+      "updatedAt": "2026-11-23T23:40:15Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 4,
+      "id": "PR_kwDORH4Ioc8AAAABRaJSGQ",
+      "title": "Remove standalone training/search issue proposal",
+      "url": "https://github.com/altanai/aipref-realtime-protocol-bindings/pull/4",
+      "state": "MERGED",
+      "author": "altanai",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "## Summary\n- Delete `issue-training-search-definition-hardening.md` as requested.\n- Leave the protocol draft and all other repository files unchanged.\n\n## Validation\n- `git diff --check` passes.\n- Verified the commit contains exactly one file deletion.\n- No build or tests run: this only removes a standalone issue note.",
+      "createdAt": "2026-11-23T23:43:09Z",
+      "updatedAt": "2026-11-23T23:46:08Z",
+      "baseRepository": "altanai/aipref-realtime-protocol-bindings",
+      "baseRefName": "main",
+      "baseRefOid": "05e8546234827c5da9ffb4ef430851b65c2e1d6f",
+      "headRepository": "altanai/aipref-realtime-protocol-bindings",
+      "headRefName": "remove-training-search-definition-note",
+      "headRefOid": "04dcc89f6205cf7e55ba2358e670817024a0a07b",
+      "closedAt": "2026-11-23T23:46:08Z",
+      "mergedAt": "2026-11-23T23:46:08Z",
+      "mergedBy": "altanai",
+      "mergeCommit": {
+        "oid": "4f5bf5cb4ff243d42520d478d7afb3f6e2b03de6"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
